@@ -13,7 +13,7 @@ $ go build
 ## (Optional) Build the example WASM from rust
 
 The pre-built WASM from rust is provided as "rust_bindgen_funcs_lib_bg.wasm".
-The pre-built compiled-WASM from rust is provided as "rust_bindgen_funcs_lib_bg.so".
+The pre-built compiled-WASM from rust is provided as "rust_bindgen_funcs_lib_bg.wasm.so".
 
 For building the WASM from the rust source, the following steps are required:
 
@@ -42,7 +42,7 @@ Or follow the [example](https://github.com/second-state/WasmEdge-go-examples/tre
 
 ```bash
 # In the `go_WasmAOT` directory
-$ go get -u .
+$ go get -u github.com/second-state/WasmEdge-go/wasmedge
 $ go build
 # Prepare the input WASM file
 $ ./wasmAOT input.wasm output.wasm.so
@@ -54,7 +54,7 @@ $ ./wasmAOT input.wasm output.wasm.so
 # For the interpreter mode
 $ ./bindgen_funcs rust_bindgen_funcs_lib_bg.wasm
 # For the AOT mode
-$ ./bindgen_funcs rust_bindgen_funcs_lib_bg.so
+$ ./bindgen_funcs rust_bindgen_funcs_lib_bg.wasm.so
 ```
 
 The standard output of this example will be the following:

@@ -12,8 +12,8 @@ $ go build --tags tensorflow
 
 ## (Optional) Build the example WASM from rust
 
-The pre-built WASM from rust is provided as "rust_mobilenet_bird_lib_bg.wasm".
-The pre-built compiled-WASM from rust is provided as "rust_mobilenet_bird_lib_bg.so".
+The pre-built WASM from rust is provided as "rust_mobilenet_birds_lib_bg.wasm".
+The pre-built compiled-WASM from rust is provided as "rust_mobilenet_birds_lib_bg.wasm.so".
 
 For building the WASM from the rust source, the following steps are required:
 
@@ -26,7 +26,7 @@ For building the WASM from the rust source, the following steps are required:
 ```bash
 $ cd rust_mobilenet_birds
 $ rustwasmc build
-# The output WASM will be `pkg/rust_mobilenet_bird_lib_bg.wasm`.
+# The output WASM will be `pkg/rust_mobilenet_birds_lib_bg.wasm`.
 ```
 
 For compiling the WASM to SO for the AOT mode, please follow the tools of [WasmEdge](https://github.com/WasmEdge/WasmEdge):
@@ -34,15 +34,15 @@ For compiling the WASM to SO for the AOT mode, please follow the tools of [WasmE
 ```bash
 $ wget https://github.com/WasmEdge/WasmEdge/releases/download/0.8.0/WasmEdge-0.8.0-manylinux2014_x86_64.tar.gz
 $ tar -xzf WasmEdge-0.8.0-manylinux2014_x86_64.tar.gz
-$ ./WasmEdge-0.8.0-Linux/bin/wasmedgec rust_mobilenet_bird_lib_bg.wasm rust_mobilenet_bird_lib_bg.wasm.so
-# The output compiled-WASM will be at `rust_mobilenet_bird_lib_bg.wasm.so`.
+$ ./WasmEdge-0.8.0-Linux/bin/wasmedgec rust_mobilenet_birds_lib_bg.wasm rust_mobilenet_birds_lib_bg.wasm.so
+# The output compiled-WASM will be at `rust_mobilenet_birds_lib_bg.wasm.so`.
 ```
 
 Or follow the [example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) for compiling the WASM to SO:
 
 ```bash
 # In the `go_WasmAOT` directory
-$ go get -u .
+$ go get -u github.com/second-state/WasmEdge-go/wasmedge
 $ go build
 # Prepare the input WASM file
 $ ./wasmAOT input.wasm output.wasm.so
@@ -54,7 +54,7 @@ $ ./wasmAOT input.wasm output.wasm.so
 # For interpreter mode:
 $ ./mobilenet_birds rust_mobilenet_birds_lib_bg.wasm PurpleGallinule.jpg
 # For AOT mode:
-$ ./mobilenet_birds rust_mobilenet_birds_lib_bg.so PurpleGallinule.jpg
+$ ./mobilenet_birds rust_mobilenet_birds_lib_bg.wasm.so PurpleGallinule.jpg
 ```
 
 The standard output of this example will be the following:

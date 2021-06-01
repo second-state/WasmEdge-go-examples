@@ -13,7 +13,7 @@ $ go build --tags tensorflow
 ## (Optional) Build the example WASM from rust
 
 The pre-built WASM from rust is provided as "rust_mobilenet_lib_bg.wasm".
-The pre-built compiled-WASM from rust is provided as "rust_mobilenet_lib_bg.so".
+The pre-built compiled-WASM from rust is provided as "rust_mobilenet_lib_bg.wasm.so".
 
 For building the WASM from the rust source, the following steps are required:
 
@@ -42,7 +42,7 @@ Or follow the [example](https://github.com/second-state/WasmEdge-go-examples/tre
 
 ```bash
 # In the `go_WasmAOT` directory
-$ go get -u .
+$ go get -u github.com/second-state/WasmEdge-go/wasmedge
 $ go build
 # Prepare the input WASM file
 $ ./wasmAOT input.wasm output.wasm.so

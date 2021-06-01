@@ -39,7 +39,7 @@ Or follow the [example](https://github.com/second-state/WasmEdge-go-examples/tre
 
 ```bash
 # In the `go_WasmAOT` directory
-$ go get -u .
+$ go get -u github.com/second-state/WasmEdge-go/wasmedge
 $ go build
 # Prepare the input WASM file
 $ ./wasmAOT input.wasm output.wasm.so
