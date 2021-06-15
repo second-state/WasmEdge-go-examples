@@ -8,6 +8,7 @@ This repository contains examples of WasmEdge-Go.
   * [go_PrintFibonacci](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_PrintFibonacci): Various WasmEdge-Go API examples in Golang.
   * [go_ReadFile](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_ReadFile): Invoke WASM with WASI in Golang.
   * [go_WasmAOT](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT): WASM AOT compiler in Golang.
+  * [go_ExternRef](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_ExternRef): External reference and host functions in Golang examples.
 * Wasm-Bindgen examples: The tutorials for [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) from Rust sources and executions.
   * [go_BindgenFuncs](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_BindgenFuncs): Example for invokation the functions from Rust source with wasm-bindgen.
   * [go_BindgenKmeans](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_BindgenKmeans): Example for kmeans calculation with wasm-bindgen.
