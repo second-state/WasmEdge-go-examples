@@ -14,12 +14,10 @@ The pre-built WASM from rust is provided as "rust_readfile.wasm".
 
 For building the WASM from the rust source, the following steps are required:
 
-* Install the [rustc](https://www.rust-lang.org/tools/install).
-* Install the `wasm32-wasi` target: `$ rustup target add wasm32-wasi`
-
 ```bash
-$ rustc rust_readfile.rs --target wasm32-wasi -C opt-level=3
-# The output file will be `rust_readfile.wasm`.
+$ cd rust_readfile
+$ rustwasmc build
+# The output file will be `pkg/rust_readfile.wasm`.
 ```
 
 ## Run
