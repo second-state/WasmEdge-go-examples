@@ -1,0 +1,11 @@
+[package]
+name = "rust-readfile"
+version = "0.1.0"
+authors = ["Second State"]
+edition = "2018"
+
+[[bin]]
+name = "rust_readfile"
+path = "src/main.rs"
+
+[dependencies]
