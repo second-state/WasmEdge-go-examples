@@ -4,16 +4,23 @@ This example is a rust to WASM with `wasm-bindgen`. This example is modified fro
 
 ## Build
 
+Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
+
+```bash
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -p /usr/local
+```
+
+Then you can build this example.
+
 ```bash
 # In the current directory.
-$ go get -u github.com/second-state/WasmEdge-go
+$ go get -u github.com/second-state/WasmEdge-go/wasmedge
 $ go build
 ```
 
 ## (Optional) Build the example WASM from rust
 
 The pre-built WASM from rust is provided as "rust_bindgen_funcs_lib_bg.wasm".
-The pre-built compiled-WASM from rust is provided as "rust_bindgen_funcs_lib_bg.wasm.so".
 
 For building the WASM from the rust source, the following steps are required:
 
@@ -29,32 +36,13 @@ $ rustwasmc build
 # The output WASM will be `pkg/rust_bindgen_funcs_lib_bg.wasm`.
 ```
 
-For compiling the WASM to SO for the AOT mode, please follow the tools of [WasmEdge](https://github.com/WasmEdge/WasmEdge):
-
-```bash
-$ wget https://github.com/WasmEdge/WasmEdge/releases/download/0.8.0/WasmEdge-0.8.0-manylinux2014_x86_64.tar.gz
-$ tar -xzf WasmEdge-0.8.0-manylinux2014_x86_64.tar.gz
-$ ./WasmEdge-0.8.0-Linux/bin/wasmedgec rust_bindgen_funcs_lib_bg.wasm rust_bindgen_funcs_lib_bg.wasm.so
-# The output compiled-WASM will be at `rust_bindgen_funcs_lib_bg.wasm.so`.
-```
-
-Or follow the [example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) for compiling the WASM to SO:
-
-```bash
-# In the `go_WasmAOT` directory
-$ go get -u github.com/second-state/WasmEdge-go/wasmedge
-$ go build
-# Prepare the input WASM file
-$ ./wasmAOT input.wasm output.wasm.so
-```
+If you want to try this example in AOT mode, please follow the [Wasm AOT example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) to compile the WASM file.
 
 ## Run
 
 ```bash
-# For the interpreter mode
+# Run in interpreter mode
 $ ./bindgen_funcs rust_bindgen_funcs_lib_bg.wasm
-# For the AOT mode
-$ ./bindgen_funcs rust_bindgen_funcs_lib_bg.wasm.so
 ```
 
 The standard output of this example will be the following:

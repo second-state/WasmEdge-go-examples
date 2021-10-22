@@ -45,20 +45,12 @@ func main() {
 
 	/// Create configure
 	var conf = wasmedge.NewConfigure(wasmedge.REFERENCE_TYPES)
-	conf.AddConfig(wasmedge.WASI)
 
 	/// Create store
 	var store = wasmedge.NewStore()
 
 	/// Create VM by configure and external store
 	var vm = wasmedge.NewVMWithConfigAndStore(conf, store)
-
-	/// Init WASI (test)
-	var wasi = vm.GetImportObject(wasmedge.WASI)
-	wasi.InitWasi([]string{"123", "arg2", "final"},
-		[]string{"ENV1=VAL1", "ENV2=VALUE2"},
-		[]string{".:.", "/usr/include:/usr/include"},
-		[]string{"fibonacci.wasm"})
 
 	/// Create import object
 	var impobj = wasmedge.NewImportObject("host", nil)

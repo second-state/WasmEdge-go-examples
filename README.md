@@ -2,6 +2,11 @@
 
 The [WasmEdge](https://github.com/WasmEdge/WasmEdge) (formerly SSVM) is a high performance WebAssembly runtime optimized for server side applications. The [WasmEdge-Go](https://github.com/second-state/WasmEdge-go) provides a [golang](https://golang.org/) package for accessing to WasmEdge.
 
+## Getting Started
+
+Before trying the examples, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
+The WasmEdge extensions are built for `Linux` platforms. For the `Windows` and `MacOS` users, there is only the WasmEdge without extensions can be installed.
+
 This repository contains examples of WasmEdge-Go.
 
 * Basic examples: The basic API examples for WasmEdge-Go.

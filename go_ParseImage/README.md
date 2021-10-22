@@ -2,6 +2,14 @@
 
 ## Build
 
+Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
+
+```bash
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -p /usr/local
+```
+
+Then you can build this example.
+
 ```bash
 # In the current directory.
 $ go get -u github.com/second-state/WasmEdge-go/wasmedge
@@ -23,9 +31,12 @@ $ cargo build --release --target=wasm32-wasi
 # The output wasm will be at `target/wasm32-wasi/release/rust_parseimage.wasm`.
 ```
 
+If you want to try this example in AOT mode, please follow the [Wasm AOT example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) to compile the WASM file.
+
 ## Run
 
 ```bash
+# Run in interpreter mode
 $ ./parse_image rust_parseimage.wasm < bird.jpeg
 ```
 

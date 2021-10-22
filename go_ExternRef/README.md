@@ -2,9 +2,17 @@
 
 ## Build
 
+Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
+
+```bash
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -p /usr/local
+```
+
+Then you can build this example.
+
 ```bash
 # In the current directory.
-$ go get -u github.com/second-state/WasmEdge-go
+$ go get -u github.com/second-state/WasmEdge-go/wasmedge
 $ go build
 ```
 
@@ -95,3 +103,5 @@ Go: Leaving go function real_square
 Go: Leaving go host function host_square
 Run call_square: (761 + 195)^2 = 913936
 ```
+
+If you want to try this example in AOT mode, please follow the [Wasm AOT example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) to compile the WASM file.
