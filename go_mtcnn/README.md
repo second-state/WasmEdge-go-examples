@@ -12,7 +12,7 @@ Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get -u github.com/second-state/WasmEdge-go/wasmedge
+$ go get github.com/second-state/WasmEdge-go/wasmedge@0.8.2
 $ go build --tags image,tensorflow
 ```
 
