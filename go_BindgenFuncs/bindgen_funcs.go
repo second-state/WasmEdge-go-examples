@@ -80,6 +80,6 @@ func main() {
 		fmt.Println("Run bindgen -- keccak_digest FAILED")
 	}
 
-	vm.Delete()
-	conf.Delete()
+	vm.Release()
+	conf.Release()
 }

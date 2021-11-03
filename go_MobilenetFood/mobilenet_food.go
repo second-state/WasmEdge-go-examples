@@ -57,6 +57,8 @@ func main() {
 		fmt.Println("GO: Run bindgen -- infer FAILED")
 	}
 
-	vm.Delete()
-	conf.Delete()
+	vm.Release()
+	conf.Release()
+	tfobj.Release()
+	tfliteobj.Release()
 }

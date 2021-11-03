@@ -25,5 +25,5 @@ func main() {
 		fmt.Println("Go: Compile WASM to AOT mode Failed!!")
 	}
 
-	compiler.Delete()
+	compiler.Release()
 }

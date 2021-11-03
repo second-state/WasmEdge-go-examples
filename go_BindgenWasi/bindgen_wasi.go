@@ -89,6 +89,6 @@ func main() {
 		fmt.Println("Run bindgen -- del_file FAILED")
 	}
 
-	vm.Delete()
-	conf.Delete()
+	vm.Release()
+	conf.Release()
 }

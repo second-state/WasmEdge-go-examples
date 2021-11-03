@@ -44,7 +44,7 @@ func main() {
 	wasmedge.SetLogErrorLevel()
 
 	/// Create configure
-	var conf = wasmedge.NewConfigure(wasmedge.REFERENCE_TYPES)
+	var conf = wasmedge.NewConfigure()
 
 	/// Create store
 	var store = wasmedge.NewStore()
@@ -53,16 +53,16 @@ func main() {
 	var vm = wasmedge.NewVMWithConfigAndStore(conf, store)
 
 	/// Create import object
-	var impobj = wasmedge.NewImportObject("host", nil)
+	var impobj = wasmedge.NewImportObject("host")
 
 	/// Create host function
 	var hostftype = wasmedge.NewFunctionType(
 		[]wasmedge.ValType{wasmedge.ValType_ExternRef, wasmedge.ValType_I32},
 		[]wasmedge.ValType{})
-	var hostprint = wasmedge.NewHostFunction(hostftype, HostPrint, 0)
+	var hostprint = wasmedge.NewFunction(hostftype, HostPrint, nil, 0)
 
 	/// Add host functions into import object
-	impobj.AddHostFunction("print_val_and_res", hostprint)
+	impobj.AddFunction("print_val_and_res", hostprint)
 
 	/// Register import module as module name "host"
 	vm.RegisterImport(impobj)
@@ -115,8 +115,8 @@ func main() {
 	}
 
 	refval.Release()
-	vm.Delete()
-	conf.Delete()
-	store.Delete()
-	impobj.Delete()
+	vm.Release()
+	conf.Release()
+	store.Release()
+	impobj.Release()
 }

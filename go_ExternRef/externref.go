@@ -118,7 +118,7 @@ func main() {
 	var vm = wasmedge.NewVM()
 
 	/// Create import object
-	var obj = wasmedge.NewImportObject("extern_module", nil)
+	var obj = wasmedge.NewImportObject("extern_module")
 
 	/// Add host functions into the import object
 	var type1 = wasmedge.NewFunctionType(
@@ -136,12 +136,12 @@ func main() {
 		}, []wasmedge.ValType{
 			wasmedge.ValType_I32,
 		})
-	var func_add = wasmedge.NewHostFunction(type1, host_add, 0)
-	var func_mul = wasmedge.NewHostFunction(type1, host_mul, 0)
-	var func_square = wasmedge.NewHostFunction(type2, host_square, 0)
-	obj.AddHostFunction("add", func_add)
-	obj.AddHostFunction("mul", func_mul)
-	obj.AddHostFunction("square", func_square)
+	var func_add = wasmedge.NewFunction(type1, host_add, nil, 0)
+	var func_mul = wasmedge.NewFunction(type1, host_mul, nil, 0)
+	var func_square = wasmedge.NewFunction(type2, host_square, nil, 0)
+	obj.AddFunction("add", func_add)
+	obj.AddFunction("mul", func_mul)
+	obj.AddFunction("square", func_square)
 
 	/// Register import object
 	vm.RegisterImport(obj)
@@ -185,5 +185,6 @@ func main() {
 	ref_add.Release()
 	ref_mul.Release()
 	ref_square.Release()
-	vm.Delete()
+	vm.Release()
+	obj.Release()
 }

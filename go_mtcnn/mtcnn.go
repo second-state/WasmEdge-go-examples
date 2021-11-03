@@ -48,6 +48,9 @@ func main() {
 	/// Instantiate wasm
 	vm.RunWasmFile(os.Args[1], "_start")
 
-	vm.Delete()
-	conf.Delete()
+	vm.Release()
+	conf.Release()
+	imgobj.Release()
+	tfobj.Release()
+	tfliteobj.Release()
 }

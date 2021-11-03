@@ -72,6 +72,6 @@ func main() {
 		fmt.Println("Run bindgen -- fit (dim128 cluster centers) FAILED")
 	}
 
-	vm.Delete()
-	conf.Delete()
+	vm.Release()
+	conf.Release()
 }

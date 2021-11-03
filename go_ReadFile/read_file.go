@@ -11,8 +11,7 @@ func main() {
 	wasmedge.SetLogErrorLevel()
 
 	/// Create configure
-	var conf = wasmedge.NewConfigure(wasmedge.REFERENCE_TYPES)
-	conf.AddConfig(wasmedge.WASI)
+	var conf = wasmedge.NewConfigure(wasmedge.WASI)
 
 	/// Create VM with configure
 	var vm = wasmedge.NewVMWithConfig(conf)
@@ -29,6 +28,6 @@ func main() {
 	/// Instantiate wasm
 	vm.RunWasmFile(os.Args[1], "_start")
 
-	vm.Delete()
-	conf.Delete()
+	vm.Release()
+	conf.Release()
 }
