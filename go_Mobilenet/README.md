@@ -5,14 +5,14 @@
 Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) with the `TensorFlow` extension is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e tf -p /usr/local
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e tf -v 0.9.0-rc.2
 ```
 
 Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get github.com/second-state/WasmEdge-go/wasmedge@0.8.2
+$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0-rc3
 $ go build --tags tensorflow
 ```
 

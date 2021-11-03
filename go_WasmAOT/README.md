@@ -7,14 +7,14 @@ This example provide a tool for compiling a WASM file into compiled-WASM for AOT
 Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -p /usr/local -v 0.8.2
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.9.0-rc.2
 ```
 
 Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get github.com/second-state/WasmEdge-go/wasmedge@0.8.2
+$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0-rc3
 $ go build
 ```
 
