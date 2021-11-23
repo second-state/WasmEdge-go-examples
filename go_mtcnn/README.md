@@ -5,14 +5,14 @@
 Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) with the `TensorFlow` and `Image` extensions is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all -v 0.9.0-rc.2
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all -v 0.9.0-rc.4
 ```
 
 Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0-rc3
+$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0-rc4
 $ go build --tags image,tensorflow
 ```
 

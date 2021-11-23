@@ -7,14 +7,14 @@ This example is a rust to WASM with `wasm-bindgen`. This example is modified fro
 Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.9.0-rc.2
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.9.0-rc.4
 ```
 
 Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0-rc3
+$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0-rc4
 $ go build
 ```
 
