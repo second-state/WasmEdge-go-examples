@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/second-state/WasmEdge-go/wasmedge"
@@ -21,12 +22,16 @@ func main() {
 	wasi.InitWasi(
 		os.Args[1:],     /// The args
 		os.Environ(),    /// The envs
-		[]string{".:."}, /// The mapping directories
-		[]string{},      /// The preopens will be empty
+		[]string{".:."}, /// The mapping preopens
 	)
 
-	/// Instantiate wasm
+	/// Run WASM file
 	vm.RunWasmFile(os.Args[1], "_start")
+
+	exitcode := wasi.WasiGetExitCode()
+	if exitcode != 0 {
+		fmt.Println("Go: Run WASM failed, exit code:", exitcode)
+	}
 
 	vm.Release()
 	conf.Release()

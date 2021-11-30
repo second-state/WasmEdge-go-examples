@@ -33,8 +33,7 @@ func main() {
 	wasi.InitWasi(
 		os.Args[1:],     /// The args
 		os.Environ(),    /// The envs
-		[]string{".:."}, /// The mapping directories
-		[]string{},      /// The preopens will be empty
+		[]string{".:."}, /// The mapping preopens
 	)
 
 	/// Register WasmEdge-image and WasmEdge-tensorflow
@@ -45,8 +44,13 @@ func main() {
 	vm.RegisterImport(tfobj)
 	vm.RegisterImport(tfliteobj)
 
-	/// Instantiate wasm
+	/// Run WASM file
 	vm.RunWasmFile(os.Args[1], "_start")
+
+	exitcode := wasi.WasiGetExitCode()
+	if exitcode != 0 {
+		fmt.Println("Go: Run WASM failed, exit code:", exitcode)
+	}
 
 	vm.Release()
 	conf.Release()

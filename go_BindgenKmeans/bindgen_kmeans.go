@@ -26,8 +26,7 @@ func main() {
 	wasi.InitWasi(
 		os.Args[1:],     /// The args
 		os.Environ(),    /// The envs
-		[]string{".:."}, /// The mapping directories
-		[]string{},      /// The preopens will be empty
+		[]string{".:."}, /// The mapping preopens
 	)
 
 	/// Instantiate wasm
