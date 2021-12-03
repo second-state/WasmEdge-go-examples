@@ -11,31 +11,18 @@ wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/insta
 Then you can build this example.
 
 ```bash
+# In the current directory.
+tinygo build -o greet.wasm -target wasi greet.go
+
 go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0-rc5
 go build greet_memory.go
-```
-
-## (Optional) Build the example WASM from rust
-
-The pre-built WASM from rust is provided as "rust_memory_greet_lib.wasm".
-
-For building the WASM from the rust source, the following steps are required:
-
-* Install the [rustc and cargo](https://www.rust-lang.org/tools/install).
-* Install `wasm32-wasi` target
-  * `$ rustup target add wasm32-wasi`
-
-```bash
-$ cd rust_memory_greet
-$ cargo build --target wasm32-wasi
-# The output WASM will be `target/wasm32-wasi/debug/rust_memory_greet_lib.wasm`.
 ```
 
 ## Run
 
 ```bash
 # Run in interpreter mode
-./greet-memory rust_memory_greet_lib.wasm
+./greet_memory greet.wasm
 ```
 
 The output will be as the following:
