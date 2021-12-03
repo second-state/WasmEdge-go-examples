@@ -23,3 +23,7 @@ This repository contains examples of WasmEdge-Go.
   * [go_MobilenetBirds](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_MobilenetBirds), [go_MobilenetFood](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_MobilenetFood), [go_MobilenetInsects](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_MobilenetInsects), and [go_MobilenetPlants](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_MobilenetPlants): MobileNet examples for every categories.
 * Tensorflow extension examples
   * [go_mtcnn](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_mtcnn): WasmEdge-tensorflow extension in WasmEdge-Go example.
+* Memory examples
+  * [go_AccessMemory](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_AccessMemory): Example showing how to pass and return memory pointer in WASM which is compiled from TinyGo.
+  * [go_MemoryGreet](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_MemoryGreet): Example showing how to pass and return string using pointer in WASM.
+  * [go_MemoryGreetTinyGo](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_MemoryGreetTinyGo): Example showing how to pass and return string using pointer in WASM which is compiled from TinyGo.
