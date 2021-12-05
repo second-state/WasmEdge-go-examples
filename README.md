@@ -24,6 +24,7 @@ This repository contains examples of WasmEdge-Go.
 * Tensorflow extension examples
   * [go_mtcnn](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_mtcnn): WasmEdge-tensorflow extension in WasmEdge-Go example.
 * Memory examples
-  * [go_AccessMemory](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_AccessMemory): Example showing how to pass and return memory pointer in WASM which is compiled from TinyGo.
+  * [go_AccessMemory](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_AccessMemory): Example showing how to pass and return memory pointer in WASM.
+  * [go_AccessMemoryTinyGo](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_AccessMemoryTinyGo): Example showing how to pass and return memory pointer in WASM which is compiled from TinyGo.
   * [go_MemoryGreet](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_MemoryGreet): Example showing how to pass and return string using pointer in WASM.
   * [go_MemoryGreetTinyGo](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_MemoryGreetTinyGo): Example showing how to pass and return string using pointer in WASM which is compiled from TinyGo.
