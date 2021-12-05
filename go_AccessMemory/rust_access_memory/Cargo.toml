@@ -1,0 +1,11 @@
+[package]
+name = "rust_access_memory"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rust_access_memory_lib"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
