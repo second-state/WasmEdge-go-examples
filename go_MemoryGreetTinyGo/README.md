@@ -5,7 +5,7 @@
 Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.9.0-rc.5
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.9.0
 ```
 
 Then you can build this example.
@@ -14,7 +14,7 @@ Then you can build this example.
 # In the current directory.
 tinygo build -o greet.wasm -target wasi greet.go
 
-go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0-rc5
+go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0
 go build greet_memory.go
 ```
 
@@ -26,7 +26,8 @@ go build greet_memory.go
 ```
 
 The output will be as the following:
-```
+
+```bash
 Hello, WasmEdge!
 ```
 
