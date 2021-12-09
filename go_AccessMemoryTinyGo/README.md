@@ -17,18 +17,19 @@ tinygo build -o fib.wasm -target wasi fib.go
 wasmedge fib.wasm
 
 go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0
-go build
+go build run.go
 ```
 
 ## Run
 
 ```bash
 # Run in interpreter mode
-./access-memory fib.wasm
+./run fib.wasm
 ```
 
 The output will be as the following:
-```
+
+```bash
 fibArray() returned: 34
 fibArray memory at: 0x14d3c
 fibArray: [0 0 0 0 1 0 0 0 1 0 0 0 2 0 0 0 3 0 0 0 5 0 0 0 8 0 0 0 13 0 0 0 21 0 0 0 34 0 0 0]

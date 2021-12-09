@@ -12,7 +12,7 @@ Then you can build this example.
 
 ```bash
 go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0
-go build
+go build run.go
 ```
 
 ## (Optional) Build the example WASM from rust
@@ -35,11 +35,12 @@ $ cargo build --target wasm32-wasi
 
 ```bash
 # Run in interpreter mode
-./access-memory rust_access_memory_lib.wasm
+./run rust_access_memory_lib.wasm
 ```
 
 The output will be as the following:
-```
+
+```bash
 fib_array() returned: 34
 fib_array memory at: 0x102d80
 fibArray: [0 0 0 0 1 0 0 0 1 0 0 0 2 0 0 0 3 0 0 0 5 0 0 0 8 0 0 0 13 0 0 0 21 0 0 0 34 0 0 0]
