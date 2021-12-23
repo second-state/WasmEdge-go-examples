@@ -46,9 +46,8 @@ func main() {
 	vm.LoadWasmFile(os.Args[1])
 	vm.Validate()
 
-	// Create the bindgen then instantiate the vm
-	bg := bindgen.NewBindgen(vm)
-	vm.Instantiate()
+	// Instantiate the bindgen and vm
+	bg := bindgen.Instantiate(vm)
 
 	img, _ := ioutil.ReadFile(os.Args[2])
 	if res, err := bg.Execute("infer", img); err != nil {
