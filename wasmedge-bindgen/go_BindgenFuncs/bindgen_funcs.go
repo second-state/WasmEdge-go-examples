@@ -34,9 +34,8 @@ func main() {
 	vm.LoadWasmFile(os.Args[1])
 	vm.Validate()
 
-	// Create the bindgen then instantiate the vm
-	bg := bindgen.NewBindgen(vm)
-	vm.Instantiate()
+	// Instantiate the bindgen and vm
+	bg := bindgen.Instantiate(vm)
 
 	/// create_line: string, string, string -> string (inputs are JSON stringified)	
 	res, err := bg.Execute("create_line", "{\"x\":2.5,\"y\":7.8}", "{\"x\":2.5,\"y\":5.8}", "A thin red line")
