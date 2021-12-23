@@ -3,7 +3,7 @@ use wasmedge_tensorflow_interface;
 use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
 
-#[build_run]
+#[wasmedge_bindgen]
 fn infer(image_data: Vec<u8>) -> Result<Vec<u8>, String> {
     let start = Instant::now();
     let img = match image::load_from_memory(&image_data[..]) {
