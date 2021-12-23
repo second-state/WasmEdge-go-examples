@@ -18,7 +18,7 @@ struct Line {
   desc: String
 }
 
-#[build_run]
+#[wasmedge_bindgen]
 pub fn create_line(p1: String, p2: String, desc: String) -> Result<Vec<u8>, String> {
   let point1: Point = serde_json::from_str(p1.as_str()).unwrap();
   let point2: Point = serde_json::from_str(p2.as_str()).unwrap();
@@ -31,13 +31,13 @@ pub fn create_line(p1: String, p2: String, desc: String) -> Result<Vec<u8>, Stri
   return Ok(serde_json::to_vec(&line).unwrap());
 }
 
-#[build_run]
+#[wasmedge_bindgen]
 pub fn say(s: String) -> Result<Vec<u8>, String> {
   let r = String::from("hello ");
   return Ok((r + s.as_str()).as_bytes().to_vec());
 }
 
-#[build_run]
+#[wasmedge_bindgen]
 pub fn obfusticate(s: String) -> Result<Vec<u8>, String> {
   let r: String = (&s).chars().map(|c| {
     match c {
@@ -49,18 +49,18 @@ pub fn obfusticate(s: String) -> Result<Vec<u8>, String> {
   Ok(r.as_bytes().to_vec())
 }
 
-#[build_run]
+#[wasmedge_bindgen]
 pub fn lowest_common_multiple(a: i32, b: i32) -> Result<Vec<u8>, String> {
   let r = lcm(a, b);
   return Ok(r.to_string().as_bytes().to_vec());
 }
 
-#[build_run]
+#[wasmedge_bindgen]
 pub fn sha3_digest(v: Vec<u8>) -> Result<Vec<u8>, String> {
   return Ok(Sha3_256::digest(&v).as_slice().to_vec());
 }
 
-#[build_run]
+#[wasmedge_bindgen]
 pub fn keccak_digest(s: Vec<u8>) -> Result<Vec<u8>, String> {
   return Ok(Keccak256::digest(&s).as_slice().to_vec());
 }
