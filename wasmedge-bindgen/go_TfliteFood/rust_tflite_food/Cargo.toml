@@ -1,0 +1,17 @@
+[package]
+name = "rust_tflite_food"
+version = "0.1.0"
+authors = ["ubuntu"]
+edition = "2018"
+
+[lib]
+name = "rust_tflite_food_lib"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+wasmedge_tensorflow_interface = "^0.2.0"
+image = { version = "0.23.0", default-features = false, features = ["jpeg", "png", "gif"] }
+imageproc = "0.21.0"
+wasmedge-bindgen = "0.1.0"
+wasmedge-bindgen-macro = "0.1.0"
