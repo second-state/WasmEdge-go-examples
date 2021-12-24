@@ -26,7 +26,6 @@ For building the WASM from the rust source, the following steps are required:
   * `$ rustup target add wasm32-wasi`
 
 ```bash
-$ cp ../../go_Mobilenet/rust_mobilenet/src/mobilenet_v2_1.4_224_frozen.pb ./rust_mobilenet/src
 $ cd rust_mobilenet
 $ cargo build --target wasm32-wasi --release
 # The output WASM will be `target/wasm32-wasi/release/rust_mobilenet_lib.wasm`.
@@ -50,3 +49,10 @@ RUST: index 653, prob 0.43212935
 RUST: Finished post-processing in ... 285.995153ms
 ["military uniform","medium"]
 ```
+
+If you want to try this example in AOT mode, you can run the following command or follow the [Wasm AOT example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) to compile the WASM file.
+```bash
+$ wasmedgec rust_mobilenet_lib.wasm rust_mobilenet_lib.so
+$ ./mobilenet rust_mobilenet_lib.so grace_hopper.jpg
+```
+And you will notice how big the performance will be enhanced.

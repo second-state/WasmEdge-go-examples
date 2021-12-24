@@ -50,3 +50,10 @@ Run bindgen -- lowest_common_multiple: 246
 Run bindgen -- sha3_digest: [87 27 231 209 189 105 251 49 159 10 211 250 15 159 154 181 43 218 26 141 56 199 25 45 60 10 20 163 54 211 195 203]
 Run bindgen -- keccak_digest: [126 194 241 200 151 116 227 33 216 99 159 22 107 3 177 169 216 191 114 156 174 193 32 159 246 228 245 133 52 75 55 27]
 ```
+
+If you want to try this example in AOT mode, you can run the following command or follow the [Wasm AOT example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) to compile the WASM file.
+```bash
+$ wasmedgec rust_bindgen_funcs_lib.wasm rust_bindgen_funcs_lib.so
+$ ./bindgen_funcs rust_bindgen_funcs_lib.so
+```
+And you will notice how big the performance will be enhanced.
