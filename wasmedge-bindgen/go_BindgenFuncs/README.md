@@ -43,7 +43,7 @@ $ ./bindgen_funcs rust_bindgen_funcs_lib.wasm
 The standard output of this example will be the following:
 
 ```bash
-Run bindgen -- create_line: {"points":[{"x":1.5,"y":3.8},{"x":2.5,"y":5.8}],"valid":true,"length":2.2360682,"desc":"A thin red line"}
+Run bindgen -- create_line: {"points":[{"x":2.5,"y":7.8},{"x":2.5,"y":5.8}],"valid":true,"length":2.0,"desc":"A thin red line"}
 Run bindgen -- say: hello bindgen funcs test
 Run bindgen -- obfusticate: N dhvpx oebja sbk whzcf bire gur ynml qbt
 Run bindgen -- lowest_common_multiple: 246

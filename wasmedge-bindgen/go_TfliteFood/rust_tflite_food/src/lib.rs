@@ -3,7 +3,7 @@ use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
 
 #[wasmedge_bindgen]
-fn infer(image_data: Vec<u8>) -> Result<Vec<u8>, String> {
+fn infer(image_data: Vec<u8>) -> String {
     let img = match image::load_from_memory(&image_data[..]) {
         Ok(a) => a.to_rgb8(),
         Err(e) => {
@@ -53,8 +53,8 @@ fn infer(image_data: Vec<u8>) -> Result<Vec<u8>, String> {
 
     let class_name = label_lines.next().unwrap().to_string();
     if max_value > 50 {
-      return Ok(format!("It {} a {} in the picture", confidence.to_string(), class_name).as_bytes().to_vec());
+      return format!("It {} a {} in the picture", confidence.to_string(), class_name);
     } else {
-      return Ok("It does not appears to be any food item in the picture.".as_bytes().to_vec());
+      return "It does not appears to be any food item in the picture.".to_string();
     }
 }

@@ -53,7 +53,7 @@ func main() {
 	if res, err := bg.Execute("infer", img); err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println(string(res))
+		fmt.Println(res[0].(string))
 	}
 
 	bg.Release()

@@ -4,7 +4,7 @@ use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
 
 #[wasmedge_bindgen]
-fn infer(image_data: Vec<u8>) -> Result<Vec<u8>, String> {
+fn infer(image_data: Vec<u8>) -> String {
     let start = Instant::now();
     let img = match image::load_from_memory(&image_data[..]) {
         Ok(a) => a.to_rgb8(),
@@ -71,6 +71,5 @@ fn infer(image_data: Vec<u8>) -> Result<Vec<u8>, String> {
         "RUST: Finished post-processing in ... {:?}",
         start.elapsed()
     );
-    let ret = serde_json::to_string(&ret).unwrap();
-    Ok(ret.as_bytes().to_vec())
+    return serde_json::to_string(&ret).unwrap();
 }
