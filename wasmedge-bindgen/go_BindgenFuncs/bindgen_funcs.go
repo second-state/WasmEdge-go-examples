@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strconv"
 
 	"github.com/second-state/WasmEdge-go/wasmedge"
 	bindgen "github.com/second-state/wasmedge-bindgen/host/go"
@@ -40,7 +39,7 @@ func main() {
 	/// create_line: string, string, string -> string (inputs are JSON stringified)	
 	res, err := bg.Execute("create_line", "{\"x\":2.5,\"y\":7.8}", "{\"x\":2.5,\"y\":5.8}", "A thin red line")
 	if err == nil {
-		fmt.Println("Run bindgen -- create_line:", string(res))
+		fmt.Println("Run bindgen -- create_line:", res[0].(string))
 	} else {
 		fmt.Println("Run bindgen -- create_line FAILED", err)
 	}
@@ -48,7 +47,7 @@ func main() {
 	/// say: string -> string
 	res, err = bg.Execute("say", "bindgen funcs test")
 	if err == nil {
-		fmt.Println("Run bindgen -- say:", string(res))
+		fmt.Println("Run bindgen -- say:", res[0].(string))
 	} else {
 		fmt.Println("Run bindgen -- say FAILED")
 	}
@@ -56,7 +55,7 @@ func main() {
 	/// obfusticate: string -> string
 	res, err = bg.Execute("obfusticate", "A quick brown fox jumps over the lazy dog")
 	if err == nil {
-		fmt.Println("Run bindgen -- obfusticate:", string(res))
+		fmt.Println("Run bindgen -- obfusticate:", res[0].(string))
 	} else {
 		fmt.Println("Run bindgen -- obfusticate FAILED")
 	}
@@ -64,8 +63,7 @@ func main() {
 	/// lowest_common_multiple: i32, i32 -> i32
 	res, err = bg.Execute("lowest_common_multiple", int32(123), int32(2))
 	if err == nil {
-		num, _ := strconv.ParseInt(string(res), 10, 32)
-		fmt.Println("Run bindgen -- lowest_common_multiple:", num)
+		fmt.Println("Run bindgen -- lowest_common_multiple:", res[0].(int32))
 	} else {
 		fmt.Println("Run bindgen -- lowest_common_multiple FAILED")
 	}
@@ -73,7 +71,7 @@ func main() {
 	/// sha3_digest: array -> array
 	res, err = bg.Execute("sha3_digest", []byte("This is an important message"))
 	if err == nil {
-		fmt.Println("Run bindgen -- sha3_digest:", res)
+		fmt.Println("Run bindgen -- sha3_digest:", res[0].([]byte))
 	} else {
 		fmt.Println("Run bindgen -- sha3_digest FAILED")
 	}
@@ -81,7 +79,7 @@ func main() {
 	/// keccak_digest: array -> array
 	res, err = bg.Execute("keccak_digest", []byte("This is an important message"))
 	if err == nil {
-		fmt.Println("Run bindgen -- keccak_digest:", res)
+		fmt.Println("Run bindgen -- keccak_digest:", res[0].([]byte))
 	} else {
 		fmt.Println("Run bindgen -- keccak_digest FAILED")
 	}
