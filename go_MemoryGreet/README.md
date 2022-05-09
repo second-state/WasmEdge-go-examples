@@ -2,17 +2,17 @@
 
 ## Build
 
-Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
+Before trying this example, the [WasmEdge installation](https://wasmedge.org/book/en/start/install.html) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.9.0
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.10.0-alpha.1
 ```
 
 Then you can build this example.
 
 ```bash
-go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0
-go build greet_memory.go
+go get github.com/second-state/WasmEdge-go/wasmedge@v0.10.0-alpha.1
+go build
 ```
 
 ## (Optional) Build the example WASM from rust
@@ -35,7 +35,7 @@ $ cargo build --target wasm32-wasi
 
 ```bash
 # Run in interpreter mode
-./greet-memory rust_memory_greet_lib.wasm
+./memory-greet rust_memory_greet_lib.wasm
 ```
 
 The output will be as the following:

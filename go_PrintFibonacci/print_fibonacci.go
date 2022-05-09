@@ -15,28 +15,20 @@ func HostPrint(data interface{}, mem *wasmedge.Memory, param []interface{}) ([]i
 	return []interface{}{}, wasmedge.Result_Success
 }
 
-func ListInsts(name interface{}, store *wasmedge.Store) {
+func ListInsts(name *string, mod *wasmedge.Module) {
 	if name == nil {
 		fmt.Println(" --- Exported instances of the anonymous module")
-		nf := store.ListFunction()
-		fmt.Println("     --- Functions (", len(nf), ") : ", nf)
-		nt := store.ListTable()
-		fmt.Println("     --- Tables    (", len(nt), ") : ", nt)
-		nm := store.ListMemory()
-		fmt.Println("     --- Memories  (", len(nm), ") : ", nm)
-		ng := store.ListGlobal()
-		fmt.Println("     --- Globals   (", len(ng), ") : ", ng)
 	} else {
-		fmt.Println(" --- Exported instances of module:", name.(string))
-		nf := store.ListFunctionRegistered(name.(string))
-		fmt.Println("     --- Functions (", len(nf), ") : ", nf)
-		nt := store.ListTableRegistered(name.(string))
-		fmt.Println("     --- Tables    (", len(nt), ") : ", nt)
-		nm := store.ListMemoryRegistered(name.(string))
-		fmt.Println("     --- Memories  (", len(nm), ") : ", nm)
-		ng := store.ListGlobalRegistered(name.(string))
-		fmt.Println("     --- Globals   (", len(ng), ") : ", ng)
+		fmt.Println(" --- Exported instances of the module", *name)
 	}
+	nf := mod.ListFunction()
+	fmt.Println("     --- Functions (", len(nf), ") : ", nf)
+	nt := mod.ListTable()
+	fmt.Println("     --- Tables    (", len(nt), ") : ", nt)
+	nm := mod.ListMemory()
+	fmt.Println("     --- Memories  (", len(nm), ") : ", nm)
+	ng := mod.ListGlobal()
+	fmt.Println("     --- Globals   (", len(ng), ") : ", ng)
 }
 
 func main() {
@@ -44,7 +36,7 @@ func main() {
 	wasmedge.SetLogErrorLevel()
 
 	/// Create configure
-	var conf = wasmedge.NewConfigure()
+	var conf = wasmedge.NewConfigure(wasmedge.WASI)
 
 	/// Create store
 	var store = wasmedge.NewStore()
@@ -52,8 +44,8 @@ func main() {
 	/// Create VM by configure and external store
 	var vm = wasmedge.NewVMWithConfigAndStore(conf, store)
 
-	/// Create import object
-	var impobj = wasmedge.NewImportObject("host")
+	/// Create module instance
+	var impobj = wasmedge.NewModule("host")
 
 	/// Create host function
 	var hostftype = wasmedge.NewFunctionType(
@@ -61,11 +53,11 @@ func main() {
 		[]wasmedge.ValType{})
 	var hostprint = wasmedge.NewFunction(hostftype, HostPrint, nil, 0)
 
-	/// Add host functions into import object
+	/// Add host functions into module instance
 	impobj.AddFunction("print_val_and_res", hostprint)
 
 	/// Register import module as module name "host"
-	vm.RegisterImport(impobj)
+	vm.RegisterModule(impobj)
 
 	/// Register fibonacci wasm as module name "wasm"
 	vm.RegisterWasmFile("wasm", "fibonacci.wasm")
@@ -78,9 +70,9 @@ func main() {
 	/// -----------logging-------------
 	modlist := store.ListModule()
 	fmt.Println("registered modules: ", modlist)
-	ListInsts(nil, store)
+	ListInsts(nil, vm.GetActiveModule())
 	for _, name := range modlist {
-		ListInsts(name, store)
+		ListInsts(&name, store.FindModule(name))
 	}
 	/// -----------logging-------------
 

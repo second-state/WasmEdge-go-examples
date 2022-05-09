@@ -29,7 +29,7 @@ func main() {
 	var vm = wasmedge.NewVMWithConfig(conf)
 
 	/// Init WASI
-	var wasi = vm.GetImportObject(wasmedge.WASI)
+	var wasi = vm.GetImportModule(wasmedge.WASI)
 	wasi.InitWasi(
 		os.Args[1:],     /// The args
 		os.Environ(),    /// The envs
@@ -37,12 +37,10 @@ func main() {
 	)
 
 	/// Register WasmEdge-image and WasmEdge-tensorflow
-	var imgobj = wasmedge.NewImageImportObject()
-	var tfobj = wasmedge.NewTensorflowImportObject()
-	var tfliteobj = wasmedge.NewTensorflowLiteImportObject()
-	vm.RegisterImport(imgobj)
-	vm.RegisterImport(tfobj)
-	vm.RegisterImport(tfliteobj)
+	var tfobj = wasmedge.NewTensorflowModule()
+	var tfliteobj = wasmedge.NewTensorflowLiteModule()
+	vm.RegisterModule(tfobj)
+	vm.RegisterModule(tfliteobj)
 
 	/// Run WASM file
 	vm.RunWasmFile(os.Args[1], "_start")
@@ -54,7 +52,6 @@ func main() {
 
 	vm.Release()
 	conf.Release()
-	imgobj.Release()
 	tfobj.Release()
 	tfliteobj.Release()
 }

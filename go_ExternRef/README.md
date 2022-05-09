@@ -2,17 +2,17 @@
 
 ## Build
 
-Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
+Before trying this example, the [WasmEdge installation](https://wasmedge.org/book/en/start/install.html) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.9.0
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.10.0-alpha.1
 ```
 
 Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.9.0
+$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.10.0-alpha.1
 $ go build
 ```
 
@@ -20,7 +20,7 @@ $ go build
 
 The WASM file is converted from WAT:
 
-```
+```wasm
 (module
   (type $t0 (func (param externref i32) (result i32)))
   (type $t1 (func (param externref i32 i32) (result i32)))
@@ -71,7 +71,7 @@ This WASM exported 4 functions:
 ## Run
 
 ```bash
-$ ./externref funcs.wasm
+./externref funcs.wasm
 ```
 
 The standard output of this example will be the following:

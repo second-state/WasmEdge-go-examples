@@ -22,7 +22,7 @@ func main() {
 	var vm = wasmedge.NewVMWithConfig(conf)
 
 	/// Init WASI
-	var wasi = vm.GetImportObject(wasmedge.WASI)
+	var wasi = vm.GetImportModule(wasmedge.WASI)
 	wasi.InitWasi(
 		os.Args[1:],     /// The args
 		os.Environ(),    /// The envs

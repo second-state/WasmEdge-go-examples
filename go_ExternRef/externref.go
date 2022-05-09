@@ -117,10 +117,10 @@ func main() {
 	/// Create VM
 	var vm = wasmedge.NewVM()
 
-	/// Create import object
-	var obj = wasmedge.NewImportObject("extern_module")
+	/// Create module instance
+	var obj = wasmedge.NewModule("extern_module")
 
-	/// Add host functions into the import object
+	/// Add host functions into the module instance
 	var type1 = wasmedge.NewFunctionType(
 		[]wasmedge.ValType{
 			wasmedge.ValType_ExternRef,
@@ -143,8 +143,8 @@ func main() {
 	obj.AddFunction("mul", func_mul)
 	obj.AddFunction("square", func_square)
 
-	/// Register import object
-	vm.RegisterImport(obj)
+	/// Register module instance
+	vm.RegisterModule(obj)
 
 	/// Instantiate wasm
 	vm.LoadWasmFile(os.Args[1])

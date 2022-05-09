@@ -4,7 +4,7 @@ This example is a rust to WASM with `wasmedge-bindgen`. This example is modified
 
 ## Build
 
-Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
+Before trying this example, the [WasmEdge installation](https://wasmedge.org/book/en/start/install.html) is required.
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.9.0
@@ -52,8 +52,10 @@ Run bindgen -- keccak_digest: [126 194 241 200 151 116 227 33 216 99 159 22 107 
 ```
 
 If you want to try this example in AOT mode, you can run the following command or follow the [Wasm AOT example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) to compile the WASM file.
+
 ```bash
-$ wasmedgec rust_bindgen_funcs_lib.wasm rust_bindgen_funcs_lib.so
-$ ./bindgen_funcs rust_bindgen_funcs_lib.so
+wasmedgec rust_bindgen_funcs_lib.wasm rust_bindgen_funcs_lib.so
+./bindgen_funcs rust_bindgen_funcs_lib.so
 ```
+
 And you will notice how big the performance will be enhanced.

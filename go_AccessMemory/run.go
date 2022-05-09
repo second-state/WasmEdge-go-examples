@@ -11,10 +11,9 @@ import (
 func main() {
 	wasmedge.SetLogErrorLevel()
 	conf := wasmedge.NewConfigure(wasmedge.WASI)
-	store := wasmedge.NewStore()
-	vm := wasmedge.NewVMWithConfigAndStore(conf, store)
+	vm := wasmedge.NewVMWithConfig(conf)
 
-	wasi := vm.GetImportObject(wasmedge.WASI)
+	wasi := vm.GetImportModule(wasmedge.WASI)
 	wasi.InitWasi(
 		os.Args[1:],
 		os.Environ(),
@@ -30,7 +29,7 @@ func main() {
 
 	n := int32(10)
 
-	p, err := vm.Execute("allocate", 4 * n)
+	p, err := vm.Execute("allocate", 4*n)
 	if err != nil {
 		fmt.Println("allocate failed:", err)
 	}
@@ -41,10 +40,11 @@ func main() {
 	} else {
 		fmt.Println("fib_array() returned:", fib[0])
 		fmt.Printf("fib_array memory at: %p\n", unsafe.Pointer((uintptr)(p[0].(int32))))
-		mem := store.FindMemory("memory")
+		mod := vm.GetActiveModule()
+		mem := mod.FindMemory("memory")
 		if mem != nil {
 			// int32 occupies 4 bytes
-			fibArray, err := mem.GetData(uint(p[0].(int32)), uint(n * 4))
+			fibArray, err := mem.GetData(uint(p[0].(int32)), uint(n*4))
 			if err == nil && fibArray != nil {
 				fmt.Println("fibArray:", fibArray)
 			}
@@ -56,21 +56,21 @@ func main() {
 		fmt.Println("fib_array_return_memory failed:", err)
 	} else {
 		fmt.Printf("fib_array_return_memory memory at: %p\n", unsafe.Pointer((uintptr)(fibP[0].(int32))))
-		mem := store.FindMemory("memory")
+		mod := vm.GetActiveModule()
+		mem := mod.FindMemory("memory")
 		if mem != nil {
 			// int32 occupies 4 bytes
-			fibArrayReturnMemory, err := mem.GetData(uint(fibP[0].(int32)), uint(n * 4))
+			fibArrayReturnMemory, err := mem.GetData(uint(fibP[0].(int32)), uint(n*4))
 			if err == nil && fibArrayReturnMemory != nil {
 				fmt.Println("fibArrayReturnMemory:", fibArrayReturnMemory)
 			}
 		}
 	}
 
-	_, err = vm.Execute("deallocate", p[0].(int32), 4 * n)
+	_, err = vm.Execute("deallocate", p[0].(int32), 4*n)
 	if err != nil {
 		fmt.Println("free failed:", err)
 	}
-
 
 	exitcode := wasi.WasiGetExitCode()
 	if exitcode != 0 {
@@ -78,6 +78,5 @@ func main() {
 	}
 
 	vm.Release()
-	store.Release()
 	conf.Release()
 }

@@ -2,7 +2,7 @@
 
 ## Build
 
-Before trying this example, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) with the `TensorFlow` extension is required.
+Before trying this example, the [WasmEdge installation](https://wasmedge.org/book/en/start/install.html) with the `TensorFlow` extension is required.
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e tf -v 0.9.0
@@ -46,8 +46,10 @@ It is very likely a Hot dog in the picture
 ```
 
 If you want to try this example in AOT mode, you can run the following command or follow the [Wasm AOT example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) to compile the WASM file.
+
 ```bash
-$ wasmedgec rust_tflite_food_lib.wasm rust_tflite_food_lib.so
-$ ./tflite_food rust_tflite_food_lib.so food.jpg
+wasmedgec rust_tflite_food_lib.wasm rust_tflite_food_lib.so
+./tflite_food rust_tflite_food_lib.so food.jpg
 ```
+
 And you will notice how big the performance will be enhanced.

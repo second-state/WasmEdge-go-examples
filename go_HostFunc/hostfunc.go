@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"io"
-	"os"
 	"net/http"
+	"os"
 
 	"github.com/second-state/WasmEdge-go/wasmedge"
 )
@@ -69,10 +69,10 @@ func main() {
 
 	conf := wasmedge.NewConfigure(wasmedge.WASI)
 	vm := wasmedge.NewVMWithConfig(conf)
-	obj := wasmedge.NewImportObject("env")
+	obj := wasmedge.NewModule("env")
 
 	h := host{}
-	// Add host functions into the import object
+	// Add host functions into the module instance
 	funcFetchType := wasmedge.NewFunctionType(
 		[]wasmedge.ValType{
 			wasmedge.ValType_I32,
@@ -93,7 +93,7 @@ func main() {
 	hostWrite := wasmedge.NewFunction(funcWriteType, h.writeMem, nil, 0)
 	obj.AddFunction("write_mem", hostWrite)
 
-	vm.RegisterImport(obj)
+	vm.RegisterModule(obj)
 
 	vm.LoadWasmFile(os.Args[1])
 	vm.Validate()

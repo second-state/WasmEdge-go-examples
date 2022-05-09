@@ -4,7 +4,7 @@ The [WasmEdge](https://github.com/WasmEdge/WasmEdge) (formerly SSVM) is a high p
 
 ## Getting Started
 
-Before trying the examples, the [WasmEdge installation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md) is required.
+Before trying the examples, the [WasmEdge installation](https://wasmedge.org/book/en/start/install.html) is required.
 The WasmEdge extensions are built for `Linux` platforms. For the `Windows` and `MacOS` users, there is only the WasmEdge without extensions can be installed.
 
 This repository contains examples of WasmEdge-Go.

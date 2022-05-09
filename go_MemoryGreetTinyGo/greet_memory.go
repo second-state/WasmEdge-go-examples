@@ -11,10 +11,9 @@ import (
 func main() {
 	wasmedge.SetLogErrorLevel()
 	conf := wasmedge.NewConfigure(wasmedge.WASI)
-	store := wasmedge.NewStore()
-	vm := wasmedge.NewVMWithConfigAndStore(conf, store)
+	vm := wasmedge.NewVMWithConfig(conf)
 
-	wasi := vm.GetImportObject(wasmedge.WASI)
+	wasi := vm.GetImportModule(wasmedge.WASI)
 	wasi.InitWasi(
 		os.Args[1:],
 		os.Environ(),
@@ -37,7 +36,8 @@ func main() {
 	inputPointer := allocateResult[0].(int32)
 
 	// Write the subject into the memory.
-	mem := store.FindMemory("memory")
+	mod := vm.GetActiveModule()
+	mem := mod.FindMemory("memory")
 	memData, _ := mem.GetData(uint(inputPointer), uint(lengthOfSubject+1))
 	copy(memData, subject)
 
@@ -50,16 +50,16 @@ func main() {
 
 	pageSize := mem.GetPageSize()
 	// Read the result of the `greet` function.
-	memData, _ = mem.GetData(uint(0), uint(pageSize * 65536))
+	memData, _ = mem.GetData(uint(0), uint(pageSize*65536))
 	nth := 0
 	var output strings.Builder
 
 	for {
-		if memData[int(outputPointer) + nth] == 0 {
+		if memData[int(outputPointer)+nth] == 0 {
 			break
 		}
 
-		output.WriteByte(memData[int(outputPointer) + nth])
+		output.WriteByte(memData[int(outputPointer)+nth])
 		nth++
 	}
 
@@ -70,6 +70,5 @@ func main() {
 	vm.Execute("free", outputPointer)
 
 	vm.Release()
-	store.Release()
 	conf.Release()
 }

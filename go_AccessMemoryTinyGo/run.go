@@ -11,10 +11,9 @@ import (
 func main() {
 	wasmedge.SetLogErrorLevel()
 	conf := wasmedge.NewConfigure(wasmedge.WASI)
-	store := wasmedge.NewStore()
-	vm := wasmedge.NewVMWithConfigAndStore(conf, store)
+	vm := wasmedge.NewVMWithConfig(conf)
 
-	wasi := vm.GetImportObject(wasmedge.WASI)
+	wasi := vm.GetImportModule(wasmedge.WASI)
 	wasi.InitWasi(
 		os.Args[1:],
 		os.Environ(),
@@ -41,10 +40,11 @@ func main() {
 	} else {
 		fmt.Println("fibArray() returned:", fib[0])
 		fmt.Printf("fibArray memory at: %p\n", unsafe.Pointer((uintptr)(p[0].(int32))))
-		mem := store.FindMemory("memory")
+		mod := vm.GetActiveModule()
+		mem := mod.FindMemory("memory")
 		if mem != nil {
 			// int32 occupies 4 bytes
-			fibArray, err := mem.GetData(uint(p[0].(int32)), uint(n * 4))
+			fibArray, err := mem.GetData(uint(p[0].(int32)), uint(n*4))
 			if err == nil && fibArray != nil {
 				fmt.Println("fibArray:", fibArray)
 			}
@@ -56,10 +56,11 @@ func main() {
 		fmt.Println("fibArrayReturnMemory failed:", err)
 	} else {
 		fmt.Printf("fibArrayReturnMemory memory at: %p\n", unsafe.Pointer((uintptr)(fibP[0].(int32))))
-		mem := store.FindMemory("memory")
+		mod := vm.GetActiveModule()
+		mem := mod.FindMemory("memory")
 		if mem != nil {
 			// int32 occupies 4 bytes
-			fibArrayReturnMemory, err := mem.GetData(uint(fibP[0].(int32)), uint(n * 4))
+			fibArrayReturnMemory, err := mem.GetData(uint(fibP[0].(int32)), uint(n*4))
 			if err == nil && fibArrayReturnMemory != nil {
 				fmt.Println("fibArrayReturnMemory:", fibArrayReturnMemory)
 			}
@@ -71,13 +72,11 @@ func main() {
 		fmt.Println("free failed:", err)
 	}
 
-
 	exitcode := wasi.WasiGetExitCode()
 	if exitcode != 0 {
 		fmt.Println("Go: Running wasm failed, exit code:", exitcode)
 	}
 
 	vm.Release()
-	store.Release()
 	conf.Release()
 }

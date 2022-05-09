@@ -37,10 +37,10 @@ func main() {
 	)
 
 	/// Register WasmEdge-tensorflow
-	var tfobj = wasmedge.NewTensorflowImportObject()
-	var tfliteobj = wasmedge.NewTensorflowLiteImportObject()
-	vm.RegisterImport(tfobj)
-	vm.RegisterImport(tfliteobj)
+	var tfobj = wasmedge.NewTensorflowModule()
+	var tfliteobj = wasmedge.NewTensorflowLiteModule()
+	vm.RegisterModule(tfobj)
+	vm.RegisterModule(tfliteobj)
 
 	/// Load and validate the wasm
 	vm.LoadWasmFile(os.Args[1])
