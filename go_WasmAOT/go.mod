@@ -2,4 +2,4 @@ module wasmAOT
 
 go 1.16
 
-require github.com/second-state/WasmEdge-go v0.10.0
+require github.com/second-state/WasmEdge-go v0.10.1-rc.1

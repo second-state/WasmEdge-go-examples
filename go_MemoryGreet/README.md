@@ -5,13 +5,13 @@
 Before trying this example, the [WasmEdge installation](https://wasmedge.org/book/en/start/install.html) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.10.0
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.10.1-rc.1
 ```
 
 Then you can build this example.
 
 ```bash
-go get github.com/second-state/WasmEdge-go/wasmedge@v0.10.0
+go get github.com/second-state/WasmEdge-go/wasmedge@v0.10.1-rc.1
 go build
 ```
 
