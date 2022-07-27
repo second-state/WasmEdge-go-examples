@@ -1,6 +1,6 @@
 # WasmEdge-Go Examples
 
-The [WasmEdge](https://github.com/WasmEdge/WasmEdge) (formerly SSVM) is a high performance WebAssembly runtime optimized for server side applications. The [WasmEdge-Go](https://github.com/second-state/WasmEdge-go) provides a [golang](https://golang.org/) package for accessing to WasmEdge.
+The [WasmEdge](https://github.com/WasmEdge/WasmEdge) is a high performance WebAssembly runtime optimized for server side applications. The [WasmEdge-Go](https://github.com/second-state/WasmEdge-go) provides a [golang](https://golang.org/) package for accessing to WasmEdge.
 
 ## Getting Started
 
@@ -14,6 +14,7 @@ This repository contains examples of WasmEdge-Go.
   * [go_ReadFile](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_ReadFile): Invoke WASM with WASI in Golang.
   * [go_WasmAOT](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT): WASM AOT compiler in Golang.
   * [go_ExternRef](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_ExternRef): External reference and host functions in Golang examples.
+  * [go_ThreadsMandelbrot](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_ThreadsMandelbrot): WASM threads proposal example to draw the mandelbrot image.
 * Wasm-Bindgen examples: The tutorials for [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) from Rust sources and executions.
   * [go_BindgenFuncs](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_BindgenFuncs): Example for invokation the functions from Rust source with wasm-bindgen.
   * [go_BindgenKmeans](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_BindgenKmeans): Example for kmeans calculation with wasm-bindgen.
