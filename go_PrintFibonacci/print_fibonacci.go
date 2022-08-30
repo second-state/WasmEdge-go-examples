@@ -6,7 +6,7 @@ import (
 	"github.com/second-state/WasmEdge-go/wasmedge"
 )
 
-func HostPrint(data interface{}, mem *wasmedge.Memory, param []interface{}) ([]interface{}, wasmedge.Result) {
+func HostPrint(data interface{}, callframe *wasmedge.CallingFrame, param []interface{}) ([]interface{}, wasmedge.Result) {
 	// param[0]: external reference
 	ref := param[0].(wasmedge.ExternRef)
 	value := ref.GetRef().(*int32)
@@ -32,62 +32,63 @@ func ListInsts(name *string, mod *wasmedge.Module) {
 }
 
 func main() {
-	/// Set not to print debug info
+	// Set not to print debug info
 	wasmedge.SetLogErrorLevel()
 
-	/// Create configure
+	// Create configure
 	var conf = wasmedge.NewConfigure(wasmedge.WASI)
 
-	/// Create store
+	// Create store
 	var store = wasmedge.NewStore()
 
-	/// Create VM by configure and external store
+	// Create VM by configure and external store
 	var vm = wasmedge.NewVMWithConfigAndStore(conf, store)
 
-	/// Create module instance
+	// Create module instance
 	var impobj = wasmedge.NewModule("host")
 
-	/// Create host function
+	// Create host function
 	var hostftype = wasmedge.NewFunctionType(
 		[]wasmedge.ValType{wasmedge.ValType_ExternRef, wasmedge.ValType_I32},
 		[]wasmedge.ValType{})
 	var hostprint = wasmedge.NewFunction(hostftype, HostPrint, nil, 0)
+	hostftype.Release()
 
-	/// Add host functions into module instance
+	// Add host functions into module instance
 	impobj.AddFunction("print_val_and_res", hostprint)
 
-	/// Register import module as module name "host"
+	// Register import module as module name "host"
 	vm.RegisterModule(impobj)
 
-	/// Register fibonacci wasm as module name "wasm"
+	// Register fibonacci wasm as module name "wasm"
 	vm.RegisterWasmFile("wasm", "fibonacci.wasm")
 
-	/// Instantiate wasm
+	// Instantiate wasm
 	vm.LoadWasmFile("test.wasm")
 	vm.Validate()
 	vm.Instantiate()
 
-	/// -----------logging-------------
+	// -----------logging-------------
 	modlist := store.ListModule()
 	fmt.Println("registered modules: ", modlist)
 	ListInsts(nil, vm.GetActiveModule())
 	for _, name := range modlist {
 		ListInsts(&name, store.FindModule(name))
 	}
-	/// -----------logging-------------
+	// -----------logging-------------
 
-	/// Create external reference
+	// Create external reference
 	var value int32 = 123456
 	refval := wasmedge.NewExternRef(&value)
 
-	/// Run print external value 123456 and fib[20]
+	// Run print external value 123456 and fib[20]
 	fmt.Println(" ### Running print_val_and_fib with fib[", 20, "] ...")
 	var _, err = vm.Execute("print_val_and_fib", refval, uint32(20))
 	if err != nil {
 		fmt.Println(" !!! Error: ", err.Error())
 	}
 
-	/// Run print external value 876543210 and fib[21]
+	// Run print external value 876543210 and fib[21]
 	value = 876543210
 	fmt.Println(" ### Running print_val_and_fib with fib[", 21, "] ...")
 	_, err = vm.Execute("print_val_and_fib", refval, uint32(21))
@@ -95,7 +96,7 @@ func main() {
 		fmt.Println(" !!! Error: ", err.Error())
 	}
 
-	/// Run fib[22] directly
+	// Run fib[22] directly
 	fmt.Println(" ### Running wasm::fib[", 22, "] ...")
 	ret, err2 := vm.ExecuteRegistered("wasm", "fib", uint32(22))
 	if err2 != nil {

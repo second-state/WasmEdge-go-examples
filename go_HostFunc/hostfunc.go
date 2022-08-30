@@ -29,10 +29,11 @@ func fetch(url string) []byte {
 }
 
 // Host function for fetching
-func (h *host) fetch(_ interface{}, mem *wasmedge.Memory, params []interface{}) ([]interface{}, wasmedge.Result) {
+func (h *host) fetch(_ interface{}, callframe *wasmedge.CallingFrame, params []interface{}) ([]interface{}, wasmedge.Result) {
 	// get url from memory
 	pointer := params[0].(int32)
 	size := params[1].(int32)
+	mem := callframe.GetMemoryByIndex(0)
 	data, _ := mem.GetData(uint(pointer), uint(size))
 	url := make([]byte, size)
 
@@ -51,9 +52,10 @@ func (h *host) fetch(_ interface{}, mem *wasmedge.Memory, params []interface{}) 
 }
 
 // Host function for writting memory
-func (h *host) writeMem(_ interface{}, mem *wasmedge.Memory, params []interface{}) ([]interface{}, wasmedge.Result) {
+func (h *host) writeMem(_ interface{}, callframe *wasmedge.CallingFrame, params []interface{}) ([]interface{}, wasmedge.Result) {
 	// write source code to memory
 	pointer := params[0].(int32)
+	mem := callframe.GetMemoryByIndex(0)
 	mem.SetData(h.fetchResult, uint(pointer), uint(len(h.fetchResult)))
 
 	return nil, wasmedge.Result_Success
@@ -61,10 +63,10 @@ func (h *host) writeMem(_ interface{}, mem *wasmedge.Memory, params []interface{
 
 func main() {
 	fmt.Println("Go: Args:", os.Args)
-	/// Expected Args[0]: program name (./externref)
-	/// Expected Args[1]: wasm file (funcs.wasm)
+	// Expected Args[0]: program name (./externref)
+	// Expected Args[1]: wasm file (funcs.wasm)
 
-	/// Set not to print debug info
+	// Set not to print debug info
 	wasmedge.SetLogErrorLevel()
 
 	conf := wasmedge.NewConfigure(wasmedge.WASI)

@@ -14,7 +14,7 @@ func main() {
 	fmt.Printf("call fibArrayReturnMemory(%d) return %p\n", n, fibArrayReturnMemory(n))
 }
 
-//export fibArray
+// export fibArray
 func fibArray(n int32, p *int32) int32 {
 	arr := unsafe.Slice(p, n)
 	for i := int32(0); i < n; i++ {
@@ -28,7 +28,7 @@ func fibArray(n int32, p *int32) int32 {
 	return arr[n-1]
 }
 
-//export fibArrayReturnMemory
+// export fibArrayReturnMemory
 func fibArrayReturnMemory(n int32) *int32 {
 	arr := make([]int32, n)
 	for i := int32(0); i < n; i++ {

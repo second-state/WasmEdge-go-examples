@@ -7,7 +7,7 @@ import (
 	"github.com/second-state/WasmEdge-go/wasmedge"
 )
 
-/// The real worker functions
+// The real worker functions
 func real_add(a int32, b int32) int32 {
 	fmt.Println("Go: Entering go function real_add")
 	c := a + b
@@ -27,100 +27,100 @@ func real_square(a int32) int32 {
 	return c
 }
 
-/// Host functions
-func host_add(data interface{}, mem *wasmedge.Memory, params []interface{}) ([]interface{}, wasmedge.Result) {
-	/// add: externref, i32, i32 -> i32
-	/// call the real add function in externref
+// Host functions
+func host_add(data interface{}, callframe *wasmedge.CallingFrame, params []interface{}) ([]interface{}, wasmedge.Result) {
+	// add: externref, i32, i32 -> i32
+	// call the real add function in externref
 	fmt.Println("Go: Entering go host function host_add")
 
-	/// Get the externref
+	// Get the externref
 	externref := params[0].(wasmedge.ExternRef)
 
-	/// Get the interface{} from externref
+	// Get the interface{} from externref
 	realref := externref.GetRef()
 
-	/// Cast to the function
+	// Cast to the function
 	realfunc := realref.(func(int32, int32) int32)
 
-	/// Call function
+	// Call function
 	res := realfunc(params[1].(int32), params[2].(int32))
 
-	/// Set the returns
+	// Set the returns
 	returns := make([]interface{}, 1)
 	returns[0] = res
 
-	/// Return
+	// Return
 	fmt.Println("Go: Leaving go host function host_add")
 	return returns, wasmedge.Result_Success
 }
 
-func host_mul(data interface{}, mem *wasmedge.Memory, params []interface{}) ([]interface{}, wasmedge.Result) {
-	/// mul: externref, i32, i32 -> i32
-	/// call the real mul function in externref
+func host_mul(data interface{}, callframe *wasmedge.CallingFrame, params []interface{}) ([]interface{}, wasmedge.Result) {
+	// mul: externref, i32, i32 -> i32
+	// call the real mul function in externref
 	fmt.Println("Go: Entering go host function host_mul")
 
-	/// Get the externref
+	// Get the externref
 	externref := params[0].(wasmedge.ExternRef)
 
-	/// Get the interface{} from externref
+	// Get the interface{} from externref
 	realref := externref.GetRef()
 
-	/// Cast to the function
+	// Cast to the function
 	realfunc := realref.(func(int32, int32) int32)
 
-	/// Call function
+	// Call function
 	res := realfunc(params[1].(int32), params[2].(int32))
 
-	/// Set the returns
+	// Set the returns
 	returns := make([]interface{}, 1)
 	returns[0] = res
 
-	/// Return
+	// Return
 	fmt.Println("Go: Leaving go host function host_mul")
 	return returns, wasmedge.Result_Success
 }
 
-func host_square(data interface{}, mem *wasmedge.Memory, params []interface{}) ([]interface{}, wasmedge.Result) {
-	/// square: externref, i32 -> i32
-	/// call the real square function in externref
+func host_square(data interface{}, callframe *wasmedge.CallingFrame, params []interface{}) ([]interface{}, wasmedge.Result) {
+	// square: externref, i32 -> i32
+	// call the real square function in externref
 	fmt.Println("Go: Entering go host function host_square")
 
-	/// Get the externref
+	// Get the externref
 	externref := params[0].(wasmedge.ExternRef)
 
-	/// Get the interface{} from externref
+	// Get the interface{} from externref
 	realref := externref.GetRef()
 
-	/// Cast to the function
+	// Cast to the function
 	realfunc := realref.(func(int32) int32)
 
-	/// Call function
+	// Call function
 	res := realfunc(params[1].(int32))
 
-	/// Set the returns
+	// Set the returns
 	returns := make([]interface{}, 1)
 	returns[0] = res
 
-	/// Return
+	// Return
 	fmt.Println("Go: Leaving go host function host_square")
 	return returns, wasmedge.Result_Success
 }
 
 func main() {
 	fmt.Println("Go: Args:", os.Args)
-	/// Expected Args[0]: program name (./externref)
-	/// Expected Args[1]: wasm file (funcs.wasm)
+	// Expected Args[0]: program name (./externref)
+	// Expected Args[1]: wasm file (funcs.wasm)
 
-	/// Set not to print debug info
+	// Set not to print debug info
 	wasmedge.SetLogErrorLevel()
 
-	/// Create VM
+	// Create VM
 	var vm = wasmedge.NewVM()
 
-	/// Create module instance
+	// Create module instance
 	var obj = wasmedge.NewModule("extern_module")
 
-	/// Add host functions into the module instance
+	// Add host functions into the module instance
 	var type1 = wasmedge.NewFunctionType(
 		[]wasmedge.ValType{
 			wasmedge.ValType_ExternRef,
@@ -143,15 +143,15 @@ func main() {
 	obj.AddFunction("mul", func_mul)
 	obj.AddFunction("square", func_square)
 
-	/// Register module instance
+	// Register module instance
 	vm.RegisterModule(obj)
 
-	/// Instantiate wasm
+	// Instantiate wasm
 	vm.LoadWasmFile(os.Args[1])
 	vm.Validate()
 	vm.Instantiate()
 
-	/// Run
+	// Run
 	var ref_add = wasmedge.NewExternRef(real_add)
 	var ref_mul = wasmedge.NewExternRef(real_mul)
 	var ref_square = wasmedge.NewExternRef(real_square)

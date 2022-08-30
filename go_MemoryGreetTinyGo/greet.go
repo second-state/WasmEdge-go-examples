@@ -7,7 +7,7 @@ import (
 
 func main() {}
 
-//export greet
+// export greet
 func greet(subject *int32) *byte {
 	nth := 0
 	var subjectStr strings.Builder
@@ -15,7 +15,7 @@ func greet(subject *int32) *byte {
 	for {
 		s := *(*int32)(unsafe.Pointer(pointer + uintptr(nth)))
 		if s == 0 {
-			break;
+			break
 		}
 
 		subjectStr.WriteByte(byte(s))
