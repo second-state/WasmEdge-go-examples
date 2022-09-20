@@ -11,7 +11,7 @@ import (
 
 func main() {
 	// Expected Args[0]: program name (./bindgen_kmeans)
-	// Expected Args[1]: wasm or wasm-so file (rust_bindgen_kmeans_lib_bg.wasm))
+	// Expected Args[1]: wasm or wasm-so file (rust_bindgen_kmeans_lib.wasm))
 
 	// Set not to print debug info
 	wasmedge.SetLogErrorLevel()
