@@ -29,7 +29,7 @@ func main() {
 
 	n := int32(10)
 
-	p, err := vm.Execute("malloc", n)
+	p, err := vm.Execute("_malloc", n)
 	if err != nil {
 		fmt.Println("malloc failed:", err)
 	}
@@ -67,7 +67,7 @@ func main() {
 		}
 	}
 
-	_, err = vm.Execute("free", p...)
+	_, err = vm.Execute("_free", p...)
 	if err != nil {
 		fmt.Println("free failed:", err)
 	}
