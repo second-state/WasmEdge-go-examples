@@ -3,11 +3,12 @@ package main
 import (
 	"strings"
 	"unsafe"
+    _ "github.com/tetratelabs/tinymem"
 )
 
 func main() {}
 
-// export greet
+//export greet
 func greet(subject *int32) *byte {
 	nth := 0
 	var subjectStr strings.Builder

@@ -32,7 +32,7 @@ func main() {
 
 	// Allocate memory for the subject, and get a pointer to it.
 	// Include a byte for the NULL terminator we add below.
-	allocateResult, _ := vm.Execute("malloc", int32(lengthOfSubject+1))
+	allocateResult, _ := vm.Execute("_malloc", int32(lengthOfSubject+1))
 	inputPointer := allocateResult[0].(int32)
 
 	// Write the subject into the memory.
@@ -66,7 +66,7 @@ func main() {
 	fmt.Println(output.String())
 
 	// Deallocate the subject, and the output.
-	vm.Execute("free", inputPointer)
+	vm.Execute("_free", inputPointer)
 	vm.Execute("free", outputPointer)
 
 	vm.Release()
