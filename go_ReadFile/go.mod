@@ -1,5 +1,5 @@
 module read_file
 
-go 1.16
+go 1.19
 
-require github.com/second-state/WasmEdge-go v0.11.2
+require github.com/second-state/WasmEdge-go v0.13.0

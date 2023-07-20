@@ -1,11 +1,12 @@
 use std::time::Instant;
-use wasm_bindgen::prelude::*;
 use wasmedge_tensorflow_interface;
+use wasmedge_bindgen::*;
+use wasmedge_bindgen_macro::*;
 
-#[wasm_bindgen]
-pub fn infer(image_data: &[u8]) -> String {
+#[wasmedge_bindgen]
+pub fn infer(image_data: Vec<u8>) -> String {
     let start = Instant::now();
-    let img = image::load_from_memory(image_data).unwrap().to_rgb8();
+    let img = image::load_from_memory(&image_data).unwrap().to_rgb8();
     println!("RUST: Loaded image in ... {:?}", start.elapsed());
     let resized = image::imageops::thumbnail(&img, 192, 192);
     println!("RUST: Resized image in ... {:?}", start.elapsed());
@@ -19,18 +20,10 @@ pub fn infer(image_data: &[u8]) -> String {
     let model_data: &[u8] = include_bytes!("mobilenet_v2_192res_1.0_inat_insect.pb");
     let labels = include_str!("aiy_insects_V1_labelmap.txt");
 
-    let mut session = wasmedge_tensorflow_interface::Session::new(
-        model_data,
-        wasmedge_tensorflow_interface::ModelType::TensorFlow,
-    );
-    session
-        .add_input(
-            "map/TensorArrayStack/TensorArrayGatherV3",
-            &flat_img,
-            &[1, 192, 192, 3],
-        )
-        .add_output("prediction")
-        .run();
+    let mut session = wasmedge_tensorflow_interface::TFSession::new(model_data);
+    session.add_input("map/TensorArrayStack/TensorArrayGatherV3", &flat_img, &[1, 192, 192, 3])
+           .add_output("prediction")
+           .run();
     let res_vec: Vec<f32> = session.get_output("prediction");
     println!("RUST: Parsed output in ... {:?}", start.elapsed());
 

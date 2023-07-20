@@ -4,29 +4,30 @@ This example provide a golang version of [WasmEdge mandelbrot set in threads exa
 
 ## Build
 
-Before trying this example, the [WasmEdge installation](https://wasmedge.org/book/en/start/install.html) is required.
+Before trying this example, the [WasmEdge installation](https://wasmedge.org/docs/start/install) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.11.2
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.13.0
 ```
 
 Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.11.2
+$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.13.0
 $ go build
 ```
 
 ## (Optional) Build the Mondelbrot WASM from C
 
-The pre-built WASM is provided as `mandelbrot.wasm` and can be downloaded here:
-
-```bash
-wget https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/examples/capi/mandelbrot-set-in-threads/mandelbrot.wasm
-```
+The pre-built WASM is provided as `mandelbrot.wasm`.
 
 For building from C source, please refer to [here](https://github.com/WasmEdge/WasmEdge/tree/master/examples/capi/mandelbrot-set-in-threads#the-mandelbrot-c-program-to-wasm).
+
+```bash
+clang -O3 --no-standard-libraries --target=wasm32 -c -o mandelbrot.o mandelbrot.c
+wasm-ld --no-entry mandelbrot.o -o mandelbrot.wasm --import-memory --export-all --shared-memory --features=mutable-globals,atomics,bulk-memory,sign-ext
+```
 
 ## Compile the WASM with AOT Compiler
 

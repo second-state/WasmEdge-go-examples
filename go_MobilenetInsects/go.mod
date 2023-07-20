@@ -1,5 +1,6 @@
 module mobilenet_insects
 
-go 1.16
+go 1.19
 
-require github.com/second-state/WasmEdge-go v0.11.2
+require github.com/second-state/WasmEdge-go v0.13.0
+require github.com/second-state/wasmedge-bindgen v0.4.1

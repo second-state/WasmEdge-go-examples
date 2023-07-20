@@ -1,11 +1,11 @@
-use wasm_bindgen::prelude::*;
-// use ndarray::{Array2, ArrayView1, ArrayView2};
+use wasmedge_bindgen::*;
+use wasmedge_bindgen_macro::*;
 use ndarray::{Array2};
 use std::str::FromStr;
 
-#[wasm_bindgen]
-pub fn fit (csv_content: &[u8], dim: i32, num_clusters: i32) -> String {
-    let data = read_data(csv_content, dim as usize);
+#[wasmedge_bindgen]
+pub fn fit (csv_content: Vec<u8>, dim: i32, num_clusters: i32) -> String {
+    let data = read_data(&csv_content, dim as usize);
     let (means, _clusters) = rkm::kmeans_lloyd(&data.view(), num_clusters as usize);
 
     // The following code groups the points into clusters around the means 
@@ -28,27 +28,3 @@ fn read_data(csv_content: &[u8], dim: usize) -> Array2<f32> {
     }
     Array2::from_shape_vec((data.len() / dim, dim), data).unwrap()
 }
-
-/*
-fn separate_groups<'a>(
-    data: &'a ArrayView2<f32>,
-    clusters: &[usize],
-) -> (
-    Vec<ArrayView1<'a, f32>>,
-    Vec<ArrayView1<'a, f32>>,
-    Vec<ArrayView1<'a, f32>>,
-) {
-    data.outer_iter().zip(clusters.iter()).fold(
-        (Vec::new(), Vec::new(), Vec::new()),
-        |mut state, (point, &cluster)| {
-            match cluster {
-                0 => state.0.push(point),
-                1 => state.1.push(point),
-                2 => state.2.push(point),
-                _ => (),
-            }
-            state
-        },
-    )
-}
-*/

@@ -22,6 +22,9 @@ func main() {
 	os.Setenv("TF_CPP_MIN_LOG_LEVEL", "3")
 	os.Setenv("TF_CPP_MIN_VLOG_LEVEL", "3")
 
+	// Load WasmEdge-image and WasmEdge-tensorflow from default path
+	wasmedge.LoadPluginDefaultPaths()
+
 	// Create configure
 	var conf = wasmedge.NewConfigure(wasmedge.WASI)
 
@@ -36,12 +39,6 @@ func main() {
 		[]string{".:."}, // The mapping preopens
 	)
 
-	// Register WasmEdge-image and WasmEdge-tensorflow
-	var tfobj = wasmedge.NewTensorflowModule()
-	var tfliteobj = wasmedge.NewTensorflowLiteModule()
-	vm.RegisterModule(tfobj)
-	vm.RegisterModule(tfliteobj)
-
 	// Run WASM file
 	vm.RunWasmFile(os.Args[1], "_start")
 
@@ -52,6 +49,4 @@ func main() {
 
 	vm.Release()
 	conf.Release()
-	tfobj.Release()
-	tfliteobj.Release()
 }

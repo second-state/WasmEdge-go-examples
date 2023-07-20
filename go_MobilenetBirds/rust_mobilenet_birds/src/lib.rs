@@ -1,16 +1,15 @@
-use wasm_bindgen::prelude::*;
+use std::time::Instant;
 use wasmedge_tensorflow_interface;
-use std::time::{Instant};
+use wasmedge_bindgen::*;
+use wasmedge_bindgen_macro::*;
 
-#[wasm_bindgen]
-pub fn infer(image_data: &[u8]) -> String {
+#[wasmedge_bindgen]
+pub fn infer(image_data: Vec<u8>) -> String {
     let start = Instant::now();
-    let img = image::load_from_memory(image_data).unwrap().to_rgb8();
+    let img = image::load_from_memory(&image_data).unwrap().to_rgb8();
     println!("RUST: Loaded image in ... {:?}", start.elapsed());
     let resized = image::imageops::thumbnail(&img, 192, 192);
     println!("RUST: Resized image in ... {:?}", start.elapsed());
-    // let resized = image::imageops::resize(&img, 224, 224, ::image::imageops::FilterType::Triangle);
-    // let resized = image::imageops::resize(&img, 224, 224, ::image::imageops::FilterType::Nearest);
     let mut flat_img: Vec<f32> = Vec::new();
     for rgb in resized.pixels() {
         flat_img.push(rgb[0] as f32 / 255.);
@@ -21,7 +20,7 @@ pub fn infer(image_data: &[u8]) -> String {
     let model_data: &[u8] = include_bytes!("mobilenet_v2_192res_1.0_inat_bird.pb");
     let labels = include_str!("aiy_birds_V1_labelmap.txt");
 
-    let mut session = wasmedge_tensorflow_interface::Session::new(model_data, wasmedge_tensorflow_interface::ModelType::TensorFlow);
+    let mut session = wasmedge_tensorflow_interface::TFSession::new(model_data);
     session.add_input("map/TensorArrayStack/TensorArrayGatherV3", &flat_img, &[1, 192, 192, 3])
            .add_output("prediction")
            .run();

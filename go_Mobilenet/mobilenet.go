@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/second-state/WasmEdge-go/wasmedge"
+	bindgen "github.com/second-state/wasmedge-bindgen/host/go"
 )
 
 func main() {
@@ -21,6 +22,9 @@ func main() {
 	os.Setenv("TF_CPP_MIN_LOG_LEVEL", "3")
 	os.Setenv("TF_CPP_MIN_VLOG_LEVEL", "3")
 
+	// Load WasmEdge-image and WasmEdge-tensorflow from default path
+	wasmedge.LoadPluginDefaultPaths()
+
 	// Create configure
 	var conf = wasmedge.NewConfigure(wasmedge.WASI)
 
@@ -35,29 +39,22 @@ func main() {
 		[]string{".:."}, // The mapping preopens
 	)
 
-	// Register WasmEdge-tensorflow
-	var tfobj = wasmedge.NewTensorflowModule()
-	var tfliteobj = wasmedge.NewTensorflowLiteModule()
-	vm.RegisterModule(tfobj)
-	vm.RegisterModule(tfliteobj)
-
-	// Instantiate wasm
+	// Load and validate the wasm
 	vm.LoadWasmFile(os.Args[1])
 	vm.Validate()
-	vm.Instantiate()
 
-	// Run bindgen functions
-	// infer: array -> array
+	// Instantiate the bindgen and vm
+	bg := bindgen.New(vm)
+	bg.Instantiate()
+
 	img, _ := ioutil.ReadFile(os.Args[2])
-	res, err := vm.ExecuteBindgen("infer", wasmedge.Bindgen_return_array, img)
+	res, _, err := bg.Execute("infer", img)
 	if err == nil {
-		fmt.Println("GO: Run bindgen -- infer:", string(res.([]byte)))
+		fmt.Println("GO: Run bindgen -- infer:", res[0].(string))
 	} else {
 		fmt.Println("GO: Run bindgen -- infer FAILED")
 	}
 
 	vm.Release()
 	conf.Release()
-	tfobj.Release()
-	tfliteobj.Release()
 }

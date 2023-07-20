@@ -1,4 +1,5 @@
-use wasm_bindgen::prelude::*;
+use wasmedge_bindgen::*;
+use wasmedge_bindgen_macro::*;
 use rand::prelude::*;
 use std::fs;
 use std::fs::File;
@@ -6,13 +7,13 @@ use std::io::{Write, Read};
 use std::env;
 use ssvm_wasi_helper::ssvm_wasi_helper::_initialize;
 
-#[wasm_bindgen]
+#[wasmedge_bindgen]
 pub fn get_random_i32() -> i32 {
   let x: i32 = random();
   return x;
 }
 
-#[wasm_bindgen]
+#[wasmedge_bindgen]
 pub fn get_random_bytes() -> Vec<u8> {
   let mut rng = thread_rng();
   let mut arr = [0u8; 128];
@@ -20,13 +21,13 @@ pub fn get_random_bytes() -> Vec<u8> {
   return arr.to_vec();
 }
 
-#[wasm_bindgen]
-pub fn echo(content: &str) -> String {
+#[wasmedge_bindgen]
+pub fn echo(content: String) -> String {
   println!("Printed from wasi: {}", content);
   return content.to_string();
 }
 
-#[wasm_bindgen]
+#[wasmedge_bindgen]
 pub fn print_env() {
   _initialize();
   println!("The env vars are as follows.");
@@ -47,15 +48,15 @@ pub fn print_env() {
   */
 }
 
-#[wasm_bindgen]
-pub fn create_file(path: &str, content: &str) {
+#[wasmedge_bindgen]
+pub fn create_file(path: String, content: String) {
   _initialize();
   let mut output = File::create(path).unwrap();
   output.write_all(content.as_bytes()).unwrap();
 }
 
-#[wasm_bindgen]
-pub fn read_file(path: &str) -> String {
+#[wasmedge_bindgen]
+pub fn read_file(path: String) -> String {
   _initialize();
   let mut f = File::open(path).unwrap();
   let mut s = String::new();
@@ -65,8 +66,8 @@ pub fn read_file(path: &str) -> String {
   }
 }
 
-#[wasm_bindgen]
-pub fn del_file(path: &str) {
+#[wasmedge_bindgen]
+pub fn del_file(path: String) {
   _initialize();
   fs::remove_file(path).expect("Unable to delete");
 }

@@ -1,12 +1,12 @@
-use std::str;
 use std::time::Instant;
-use wasm_bindgen::prelude::*;
 use wasmedge_tensorflow_interface;
+use wasmedge_bindgen::*;
+use wasmedge_bindgen_macro::*;
 
-#[wasm_bindgen]
-pub fn infer(image_data: &[u8]) -> String {
+#[wasmedge_bindgen]
+pub fn infer(image_data: Vec<u8>) -> String {
     let start = Instant::now();
-    let img = image::load_from_memory(image_data).unwrap().to_rgb8();
+    let img = image::load_from_memory(&image_data).unwrap().to_rgb8();
     println!("RUST: Loaded image in ... {:?}", start.elapsed());
     let resized = image::imageops::thumbnail(&img, 224, 224);
     println!("RUST: Resized image in ... {:?}", start.elapsed());
@@ -20,14 +20,10 @@ pub fn infer(image_data: &[u8]) -> String {
     let model_data: &[u8] = include_bytes!("mobilenet_v2_1.4_224_frozen.pb");
     let labels = include_str!("imagenet_slim_labels.txt");
 
-    let mut session = wasmedge_tensorflow_interface::Session::new(
-        model_data,
-        wasmedge_tensorflow_interface::ModelType::TensorFlow,
-    );
-    session
-        .add_input("input", &flat_img, &[1, 224, 224, 3])
-        .add_output("MobilenetV2/Predictions/Softmax")
-        .run();
+    let mut session = wasmedge_tensorflow_interface::TFSession::new(model_data);
+    session.add_input("input", &flat_img, &[1, 224, 224, 3])
+           .add_output("MobilenetV2/Predictions/Softmax")
+           .run();
     let res_vec: Vec<f32> = session.get_output("MobilenetV2/Predictions/Softmax");
     println!("RUST: Parsed output in ... {:?}", start.elapsed());
 

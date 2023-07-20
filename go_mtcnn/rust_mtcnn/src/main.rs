@@ -28,10 +28,7 @@ fn main() {
         flat_img.push(rgb[0] as f32);
     }
 
-    let mut session = wasmedge_tensorflow_interface::Session::new(
-        &mod_buf,
-        wasmedge_tensorflow_interface::ModelType::TensorFlow,
-    );
+    let mut session = wasmedge_tensorflow_interface::TFSession::new(&mod_buf);
     session
         .add_input("min_size", &[20.0f32], &[])
         .add_input("thresholds", &[0.6f32, 0.7f32, 0.7f32], &[3])

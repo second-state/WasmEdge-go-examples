@@ -1,39 +1,37 @@
-# WasmEdge-Go Wasm-Bindgen Kmeans example
+# WasmEdge-Go wasmedge-bindgen Kmeans example
 
-This example is a rust to WASM with `wasm-bindgen`. This example is modified from the [nodejs WASM example](https://github.com/second-state/wasm-learning/tree/master/nodejs/kmeans).
+This example is a rust to WASM with `wasmedge-bindgen`. This example is modified from the [nodejs WASM example](https://github.com/second-state/wasm-learning/tree/master/nodejs/kmeans).
 
 ## Build
 
-Before trying this example, the [WasmEdge installation](https://wasmedge.org/book/en/start/install.html) is required.
+Before trying this example, the [WasmEdge installation](https://wasmedge.org/docs/start/install) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.11.2
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.13.0
 ```
 
 Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.11.2
+$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.13.0
 $ go build
 ```
 
 ## (Optional) Build the example WASM from rust
 
-The pre-built WASM from rust is provided as "rust_bindgen_kmeans_lib_bg.wasm".
+The pre-built WASM from rust is provided as "rust_bindgen_kmeans_lib.wasm".
 
 For building the WASM from the rust source, the following steps are required:
 
 * Install the [rustc and cargo](https://www.rust-lang.org/tools/install).
-* Set the default `rustup` version to `1.50.0` or lower.
-  * `$ rustup default 1.50.0`
-* Install the [rustwasmc](https://github.com/second-state/rustwasmc)
-  * `$ curl https://raw.githubusercontent.com/second-state/rustwasmc/master/installer/init.sh -sSf | sh`
+* Install the target `wasm32-wasi` for rust.
+  * `$ rustup target add wasm32-wasi`
 
 ```bash
 $ cd rust_bindgen_kmeans
-$ rustwasmc build --enable-aot
-# The output WASM will be `pkg/rust_bindgen_kmeans_lib_bg.wasm`.
+$ cargo build --target wasm32-wasi --release
+# The output WASM will be `target/wasm32-wasi/release/rust_bindgen_kmeans_lib.wasm`.
 ```
 
 If you want to try this example in AOT mode, please follow the [Wasm AOT example](https://github.com/second-state/WasmEdge-go-examples/tree/master/go_WasmAOT) to compile the WASM file.
