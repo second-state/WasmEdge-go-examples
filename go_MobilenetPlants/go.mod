@@ -1,6 +1,6 @@
 module mobilenet_plants
 
-go 1.19
+go 1.22
 
-require github.com/second-state/WasmEdge-go v0.13.0
+require github.com/second-state/WasmEdge-go v0.13.5
 require github.com/second-state/wasmedge-bindgen v0.4.1

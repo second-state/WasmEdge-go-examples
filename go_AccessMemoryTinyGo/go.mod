@@ -1,5 +1,5 @@
 module access-memory
 
-go 1.19
+go 1.22
 
-require github.com/second-state/WasmEdge-go v0.13.0
+require github.com/second-state/WasmEdge-go v0.13.5
