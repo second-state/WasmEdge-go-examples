@@ -5,7 +5,7 @@
 Before trying this example, the [WasmEdge installation](https://wasmedge.org/docs/start/install) is required.
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.13.5
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.14.0
 ```
 
 Then you can build this example ([tinygo required](https://tinygo.org/getting-started/install/)).
@@ -16,7 +16,7 @@ tinygo build -o fib.wasm -target wasi fib.go
 # Test using wasmedge command
 wasmedge fib.wasm
 
-go get github.com/second-state/WasmEdge-go/wasmedge@v0.13.5
+go get github.com/second-state/WasmEdge-go/wasmedge@v0.14.0-rc.1
 go build run.go
 ```
 

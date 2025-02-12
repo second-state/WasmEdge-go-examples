@@ -122,19 +122,19 @@ func main() {
 
 	// Add host functions into the module instance
 	var type1 = wasmedge.NewFunctionType(
-		[]wasmedge.ValType{
-			wasmedge.ValType_ExternRef,
-			wasmedge.ValType_I32,
-			wasmedge.ValType_I32,
-		}, []wasmedge.ValType{
-			wasmedge.ValType_I32,
+		[]*wasmedge.ValType{
+			wasmedge.NewValTypeExternRef(),
+			wasmedge.NewValTypeI32(),
+			wasmedge.NewValTypeI32(),
+		}, []*wasmedge.ValType{
+			wasmedge.NewValTypeI32(),
 		})
 	var type2 = wasmedge.NewFunctionType(
-		[]wasmedge.ValType{
-			wasmedge.ValType_ExternRef,
-			wasmedge.ValType_I32,
-		}, []wasmedge.ValType{
-			wasmedge.ValType_I32,
+		[]*wasmedge.ValType{
+			wasmedge.NewValTypeExternRef(),
+			wasmedge.NewValTypeI32(),
+		}, []*wasmedge.ValType{
+			wasmedge.NewValTypeI32(),
 		})
 	var func_add = wasmedge.NewFunction(type1, host_add, nil, 0)
 	var func_mul = wasmedge.NewFunction(type1, host_mul, nil, 0)

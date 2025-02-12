@@ -49,8 +49,8 @@ func main() {
 
 	// Create host function
 	var hostftype = wasmedge.NewFunctionType(
-		[]wasmedge.ValType{wasmedge.ValType_ExternRef, wasmedge.ValType_I32},
-		[]wasmedge.ValType{})
+		[]*wasmedge.ValType{wasmedge.NewValTypeExternRef(), wasmedge.NewValTypeI32()},
+		[]*wasmedge.ValType{})
 	var hostprint = wasmedge.NewFunction(hostftype, HostPrint, nil, 0)
 	hostftype.Release()
 

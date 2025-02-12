@@ -76,22 +76,22 @@ func main() {
 	h := host{}
 	// Add host functions into the module instance
 	funcFetchType := wasmedge.NewFunctionType(
-		[]wasmedge.ValType{
-			wasmedge.ValType_I32,
-			wasmedge.ValType_I32,
+		[]*wasmedge.ValType{
+			wasmedge.NewValTypeI32(),
+			wasmedge.NewValTypeI32(),
 		},
-		[]wasmedge.ValType{
-			wasmedge.ValType_I32,
+		[]*wasmedge.ValType{
+			wasmedge.NewValTypeI32(),
 		})
 
 	hostFetch := wasmedge.NewFunction(funcFetchType, h.fetch, nil, 0)
 	obj.AddFunction("fetch", hostFetch)
 
 	funcWriteType := wasmedge.NewFunctionType(
-		[]wasmedge.ValType{
-			wasmedge.ValType_I32,
+		[]*wasmedge.ValType{
+			wasmedge.NewValTypeI32(),
 		},
-		[]wasmedge.ValType{})
+		[]*wasmedge.ValType{})
 	hostWrite := wasmedge.NewFunction(funcWriteType, h.writeMem, nil, 0)
 	obj.AddFunction("write_mem", hostWrite)
 
