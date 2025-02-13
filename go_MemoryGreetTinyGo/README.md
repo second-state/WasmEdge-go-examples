@@ -14,7 +14,7 @@ Then you can build this example.
 # In the current directory.
 tinygo build -o greet.wasm -target wasi greet.go
 
-go get github.com/second-state/WasmEdge-go/wasmedge@v0.14.0-rc.1
+go get github.com/second-state/WasmEdge-go/wasmedge@v0.14.0
 go build greet_memory.go
 ```
 

@@ -16,7 +16,7 @@ tinygo build -o fib.wasm -target wasi fib.go
 # Test using wasmedge command
 wasmedge fib.wasm
 
-go get github.com/second-state/WasmEdge-go/wasmedge@v0.14.0-rc.1
+go get github.com/second-state/WasmEdge-go/wasmedge@v0.14.0
 go build run.go
 ```
 

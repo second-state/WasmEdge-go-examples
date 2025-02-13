@@ -12,7 +12,7 @@ Then you can build this example.
 
 ```bash
 # In the current directory.
-$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.14.0-rc.1
+$ go get github.com/second-state/WasmEdge-go/wasmedge@v0.14.0
 $ go build
 ```
 
