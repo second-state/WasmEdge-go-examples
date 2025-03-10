@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
+	"encoding/binary"
 
 	"github.com/second-state/WasmEdge-go/wasmedge"
 )
@@ -48,26 +48,16 @@ func main() {
 	greetResult, _ := vm.Execute("greet", inputPointer)
 	outputPointer := greetResult[0].(int32)
 
-	pageSize := mem.GetPageSize()
+	memData, _ = mem.GetData(uint(outputPointer), 8)
+	resultPointer := binary.LittleEndian.Uint32(memData[:4])
+	resultLength := binary.LittleEndian.Uint32(memData[4:])
+
 	// Read the result of the `greet` function.
-	memData, _ = mem.GetData(uint(0), uint(pageSize*65536))
-	nth := 0
-	var output strings.Builder
-
-	for {
-		if memData[int(outputPointer)+nth] == 0 {
-			break
-		}
-
-		output.WriteByte(memData[int(outputPointer)+nth])
-		nth++
-	}
-
-	fmt.Println(output.String())
+	memData, _ = mem.GetData(uint(resultPointer), uint(resultLength))
+	fmt.Println(string(memData))
 
 	// Deallocate the subject, and the output.
 	vm.Execute("free", inputPointer)
-	vm.Execute("free", outputPointer)
 
 	vm.Release()
 	conf.Release()

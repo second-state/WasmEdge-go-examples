@@ -7,8 +7,8 @@ import (
 
 func main() {}
 
-// export greet
-func greet(subject *int32) *byte {
+//export greet
+func greet(subject *int32) *int32 {
 	nth := 0
 	var subjectStr strings.Builder
 	pointer := uintptr(unsafe.Pointer(subject))
@@ -22,8 +22,11 @@ func greet(subject *int32) *byte {
 		nth++
 	}
 
-	output := subjectStr.String()
-	output = "Hello, " + output + "!"
+	output := []byte("Hello, " + subjectStr.String() + "!")
 
-	return &(([]byte)(output)[0])
+	r := make([]int32, 2)
+	r[0] = int32(uintptr(unsafe.Pointer(&(output[0]))))
+	r[1] = int32(len(output))
+
+	return &r[0]
 }
